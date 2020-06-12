@@ -13,6 +13,7 @@ import FriendList from "../../panels/FriendList/FriendList";
 import GroupMain from "../../panels/GroupMain/GroupMain";
 import NewItem from "../../panels/NewItem/NewItem";
 import QuestionItem from "../../panels/QuestionItem/QuestionItem";
+import VotingItem from "../../panels/VotingItem/VotingItem";
 
 const App = () => {
   const {setUser, popout, setPopout, changeRoute, activePanel} = useContext(Context);
@@ -69,6 +70,9 @@ const App = () => {
         </Panel>
         <Panel id={pages.QUESTION_ITEM} separator={false}>
           <QuestionItem/>
+        </Panel>
+        <Panel id={pages.VOTING_ITEM} separator={false}>
+          <VotingItem/>
         </Panel>
       </View>
     </Fragment>

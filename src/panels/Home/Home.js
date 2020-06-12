@@ -14,7 +14,7 @@ const Home = () => {
 
   const router = useRouter();
   const goToGroupAdd = () => router.navigate(pages.GROUP_ADD);
-  const goToGroup = () => router.navigate(pages.GROUP);
+  const goToGroup = () => router.navigate(pages.GROUP_MAIN);
 
   return (
     <Fragment>

@@ -6,8 +6,12 @@ export const pages = {
   GROUP_ADD: 'group_add',
   GROUP_SETTINGS: 'group_settings',
   NEWS_ADD: 'news_add',
-  GROUP: 'group',
-  FRIEND_LIST: 'friend_list'
+  GROUP_MAIN: 'group_main',
+  FRIEND_LIST: 'friend_list',
+  NEW_ITEM: 'new_item',
+  QUESTION_ITEM: 'question_item',
+  VOTING_ITEM: 'voting_item',
+  WORK_ITEM: 'work_item',
 };
 
 const routes = [
@@ -15,8 +19,12 @@ const routes = [
   { name: pages.GROUP_ADD, path: '/group_add' },
   { name: pages.GROUP_SETTINGS, path: '/group_settings' },
   { name: pages.NEWS_ADD, path: '/news_add' },
-  { name: pages.GROUP, path: '/group' },
+  { name: pages.GROUP_MAIN, path: '/group_main' },
   { name: pages.FRIEND_LIST, path: '/friend_list' },
+  { name: pages.NEW_ITEM, path: '/new_item/:newId' },
+  { name: pages.QUESTION_ITEM, path: '/question_item/:questionId' },
+  { name: pages.VOTING_ITEM, path: '/voting_item/:votingId' },
+  { name: pages.WORK_ITEM, path: '/work_item/:workId' },
 ];
 
 export const initialize = () => {

@@ -10,6 +10,8 @@ import GroupAdd from "../../panels/GroupAdd/GroupAdd";
 
 import Context from "./context";
 import FriendList from "../../panels/FriendList/FriendList";
+import GroupMain from "../../panels/GroupMain/GroupMain";
+import NewItem from "../../panels/NewItem/NewItem";
 
 const App = () => {
   const {setUser, popout, setPopout, changeRoute, activePanel} = useContext(Context);
@@ -58,9 +60,12 @@ const App = () => {
         <Panel id={pages.FRIEND_LIST} separator={true}>
           <FriendList/>
         </Panel>
-        <Group id={pages.GROUP} separator={true}>
-          <FriendList/>
-        </Group>
+        <Panel id={pages.GROUP_MAIN} separator={false}>
+          <GroupMain/>
+        </Panel>
+        <Panel id={pages.NEW_ITEM} separator={false}>
+          <NewItem/>
+        </Panel>
       </View>
     </Fragment>
   );

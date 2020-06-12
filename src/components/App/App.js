@@ -4,11 +4,12 @@ import {useRoute} from 'react-router5';
 import View from '@vkontakte/vkui/dist/components/View/View';
 import '@vkontakte/vkui/dist/vkui.css';
 import Home from "../../panels/Home/Home";
-import {Panel, ScreenSpinner} from "@vkontakte/vkui";
+import {Group, Panel, ScreenSpinner} from "@vkontakte/vkui";
 import {pages} from "../../router";
 import GroupAdd from "../../panels/GroupAdd/GroupAdd";
 
 import Context from "./context";
+import FriendList from "../../panels/FriendList/FriendList";
 
 const App = () => {
   const {setUser, popout, setPopout, changeRoute, activePanel} = useContext(Context);
@@ -47,13 +48,19 @@ const App = () => {
 
   return (
     <Fragment>
-      <View activePanel={activePanel} popout={popout}>
+      <View activePanel={activePanel} popout={popout} header={false}>
         <Panel id={pages.HOME} separator={true}>
           <Home/>
         </Panel>
         <Panel id={pages.GROUP_ADD} separator={true}>
           <GroupAdd/>
         </Panel>
+        <Panel id={pages.FRIEND_LIST} separator={true}>
+          <FriendList/>
+        </Panel>
+        <Group id={pages.GROUP} separator={true}>
+          <FriendList/>
+        </Group>
       </View>
     </Fragment>
   );

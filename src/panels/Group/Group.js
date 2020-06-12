@@ -10,27 +10,26 @@ import {useRouter} from "react-router5";
 
 import Icon24AddOutline from '@vkontakte/icons/dist/24/add_outline';
 
-const Home = () => {
+const Group = () => {
 
   const router = useRouter();
   const goToGroupAdd = () => router.navigate(pages.GROUP_ADD);
-  const goToGroup = () => router.navigate(pages.GROUP);
 
   return (
     <Fragment>
       <PanelHeaderSimple right={<Icon24AddOutline onClick={() => {goToGroupAdd()}} />}>
         Группы
       </PanelHeaderSimple>
-{/*      <Div style={{paddingTop: '30px', margin: '0 15px', textAlign: 'center'}}>
+      {/*      <Div style={{paddingTop: '30px', margin: '0 15px', textAlign: 'center'}}>
         Вы не состоите ни в одной группе.
         Создайте свою или дождитесь приглашения.
       </Div>*/}
       <List>
-        <Cell onClick={() => {goToGroup()}} description="Вы являетесь организатором данной группы">Группа дома №3</Cell>
-        <Cell onClick={() => {goToGroup()}}>Группа дома №4</Cell>
+        <Cell onClick={() => {goToGroupAdd()}} description="Вы являетесь организатором данной группы">Группа дома №3</Cell>
+        <Cell onClick={() => {}}>Группа дома №4</Cell>
       </List>
     </Fragment>
   )
 };
 
-export default Home;
+export default Group;

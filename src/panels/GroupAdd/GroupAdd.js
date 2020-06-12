@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import {
+  Avatar,
   Button,
   Cell,
   Div, FormLayout, FormLayoutGroup, Input,
@@ -9,6 +10,8 @@ import {
 import Icon24AddOutline from '@vkontakte/icons/dist/24/add_outline';
 import Icon24DoneOutline from '@vkontakte/icons/dist/24/done_outline';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
+import {useRouter} from "react-router5";
+import {pages} from "../../router";
 
 //  TODO сделать условие вывода для пустых групп
 
@@ -16,6 +19,9 @@ const GroupAdd = () => {
 
   let error = '';
   const goToHome = () => window.history.back();
+
+  const router = useRouter();
+  const goToFriendList = () => router.navigate(pages.FRIEND_LIST);
 
   return (
     <Fragment>
@@ -33,9 +39,13 @@ const GroupAdd = () => {
           bottom={error}
         />
         <FormLayoutGroup top="участники">
-          <Button mode="commerce">Добавить</Button>
+          <Button mode="commerce" onClick={() => {goToFriendList()}}>Добавить</Button>
           <List>
-            <Cell>тест</Cell>
+            <List>
+                <Cell removable onRemove={() => {}}>name</Cell>
+                <Cell removable onRemove={() => {}}>name</Cell>
+                <Cell removable onRemove={() => {}}>name</Cell>
+            </List>
           </List>
         </FormLayoutGroup>
       </FormLayout>

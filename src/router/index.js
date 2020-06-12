@@ -6,7 +6,8 @@ export const pages = {
   GROUP_ADD: 'group_add',
   GROUP_SETTINGS: 'group_settings',
   NEWS_ADD: 'news_add',
-  GROUP: 'group'
+  GROUP: 'group',
+  FRIEND_LIST: 'friend_list'
 };
 
 const routes = [
@@ -15,6 +16,7 @@ const routes = [
   { name: pages.GROUP_SETTINGS, path: '/group_settings' },
   { name: pages.NEWS_ADD, path: '/news_add' },
   { name: pages.GROUP, path: '/group' },
+  { name: pages.FRIEND_LIST, path: '/friend_list' },
 ];
 
 export const initialize = () => {

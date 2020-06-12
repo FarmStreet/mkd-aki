@@ -1,5 +1,5 @@
 {
-  "name": "mini-app",
+  "name": "mkd-aki",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -35,5 +35,17 @@
     "react-router5": "^8.0.1",
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

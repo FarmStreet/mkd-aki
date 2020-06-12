@@ -22,6 +22,9 @@ const GroupMain = () => {
 
   const router = useRouter();
   const goToNewItem = (id) => router.navigate(pages.NEW_ITEM, {newId: id});
+  const goToQuestionItem = (id) => router.navigate(pages.QUESTION_ITEM, {questionId: id});
+  const goToVotingItem = (id) => router.navigate(pages.VOTING_ITEM, {votingId: id});
+  const goToWorkItem = (id) => router.navigate(pages.WORK_ITEM, {workId: id});
 
   return (
     <Fragment>
@@ -42,9 +45,9 @@ const GroupMain = () => {
       <Group>
         <List>
           <Cell onClick={() => goToNewItem(1)} before={<Icon24Note/>}>Новость</Cell>
-          <Cell before={<Icon24Help/>}>Вопрос</Cell>
-          <Cell before={<Icon24Advertising/>}>Голосование</Cell>
-          <Cell before={<Icon24Work/>}>Работа</Cell>
+          <Cell onClick={() => goToQuestionItem(1)} before={<Icon24Help/>}>Вопрос</Cell>
+          <Cell onClick={() => goToVotingItem(1)} before={<Icon24Advertising/>}>Голосование</Cell>
+          <Cell onClick={() => goToWorkItem(1)} before={<Icon24Work/>}>Работа</Cell>
         </List>
       </Group>
     </Fragment>

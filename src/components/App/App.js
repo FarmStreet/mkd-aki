@@ -6,6 +6,7 @@ import '@vkontakte/vkui/dist/vkui.css';
 import Home from "../../panels/Home/Home";
 import {Panel} from "@vkontakte/vkui";
 import {pages} from "../../router";
+import GroupAdd from "../../panels/GroupAdd/GroupAdd";
 
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
@@ -29,14 +30,13 @@ const App = () => {
 		fetchData();
 	}, []);
 
-	const go = e => {
-		setActivePanel(e.currentTarget.dataset.to);
-	};
-
 	return (
 		<View activePanel={activePanel} popout={popout}>
 			<Panel id={pages.HOME} separator={true}>
-				<Home id='home' fetchedUser={fetchedUser} go={go} />
+				<Home id='home' fetchedUser={fetchedUser} />
+			</Panel>
+			<Panel id={pages.GROUP_ADD} separator={true}>
+				<GroupAdd id='group_add' fetchedUser={fetchedUser} />
 			</Panel>
 		</View>
 	);

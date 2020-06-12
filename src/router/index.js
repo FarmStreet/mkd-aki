@@ -3,6 +3,10 @@ import browserPlugin from 'router5-plugin-browser';
 
 export const pages = {
   HOME: 'home',
+  GROUP_ADD: 'group_add',
+  GROUP_SETTINGS: 'group_settings',
+  NEWS_ADD: 'news_add',
+  GROUP: 'group'
 };
 
 const routes = [

@@ -11,6 +11,10 @@ export const pages = {
 
 const routes = [
   { name: pages.HOME, path: '/' },
+  { name: pages.GROUP_ADD, path: '/group_add' },
+  { name: pages.GROUP_SETTINGS, path: '/group_settings' },
+  { name: pages.NEWS_ADD, path: '/news_add' },
+  { name: pages.GROUP, path: '/group' },
 ];
 
 export const initialize = () => {

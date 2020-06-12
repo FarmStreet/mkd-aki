@@ -15,10 +15,11 @@ import Icon24Back from '@vkontakte/icons/dist/24/back';
 const GroupAdd = () => {
 
   let error = '';
+  const goToHome = () => window.history.back();
 
   return (
     <Fragment>
-      <PanelHeaderSimple left={<Icon24Back onClick={() => {console.log(5)}} />} right={<Icon24DoneOutline/>}>
+      <PanelHeaderSimple left={<Icon24Back onClick={() => {goToHome()}} />} right={<Icon24DoneOutline/>}>
         Добавить группу
       </PanelHeaderSimple>
       <FormLayout>

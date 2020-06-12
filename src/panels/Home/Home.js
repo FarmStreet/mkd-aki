@@ -17,7 +17,7 @@ const Home = () => {
 
   return (
     <Fragment>
-      <PanelHeaderSimple right={<Icon24AddOutline onClick={() => goToGroupAdd()} />}>
+      <PanelHeaderSimple right={<Icon24AddOutline onClick={() => {goToGroupAdd()}} />}>
         Группы
       </PanelHeaderSimple>
 {/*      <Div style={{paddingTop: '30px', margin: '0 15px', textAlign: 'center'}}>
@@ -25,7 +25,7 @@ const Home = () => {
         Создайте свою или дождитесь приглашения.
       </Div>*/}
       <List>
-        <Cell onClick={() => {}} description="Вы являетесь организатором данной группы">Группа дома №3</Cell>
+        <Cell onClick={() => {goToGroupAdd()}} description="Вы являетесь организатором данной группы">Группа дома №3</Cell>
         <Cell onClick={() => {}}>Группа дома №4</Cell>
       </List>
     </Fragment>

@@ -1,4 +1,5 @@
 import React, {Fragment, useContext, useState} from 'react';
+import bridge from '@vkontakte/vk-bridge';
 import {
   Avatar,
   Button,
@@ -14,14 +15,18 @@ import Icon24Back from '@vkontakte/icons/dist/24/back';
 import {useRouter} from "react-router5";
 import {pages} from "../../router";
 import Context from "../../components/App/context";
-import {FRIEND_LIST} from "../../components/App/constants";
+import {APP_ID, FRIEND_LIST} from "../../components/App/constants";
 
 //  TODO сделать условие вывода для пустых групп
 
 const FriendList = () => {
-  const {addCreatingGroupMembers, creatingGroup} = useContext(Context);
+  const {addCreatingGroupMembers, creatingGroup, friendList} = useContext(Context);
   const [isActiveButton, setIsActiveButton] = useState(false);
   const [newMembers, setNewMembers] = useState([]);
+
+  if (!friendList) {
+    bridge.send("VKWebAppGetAuthToken", {"app_id": APP_ID, "scope": "friends"});
+  }
 
   const toggleMember = (member) => {
 
@@ -48,7 +53,7 @@ const FriendList = () => {
       </PanelHeaderSimple>
       <Group header={<Header mode="secondary">Друзья</Header>} style={{paddingBottom: '70px'}}>
         <List>
-          {FRIEND_LIST.map(({id, name}) => isIssetMember(id) ? '' : <Cell onChange={() => toggleMember({id: id, name: name})} key={id} selectable>{name}</Cell>)}
+          {friendList.map(({id, name}) => isIssetMember(id) ? '' : <Cell onChange={() => toggleMember({id: id, name: name})} key={id} selectable>{name}</Cell>)}
         </List>
       </Group>
       <FixedLayout vertical="bottom">

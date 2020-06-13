@@ -16,9 +16,10 @@ import QuestionItem from "../../panels/QuestionItem/QuestionItem";
 import VotingItem from "../../panels/VotingItem/VotingItem";
 import EventAdd from "../../panels/NewsAdd/EventAdd";
 import AskQuestion from "../../panels/AskQuestion/AskQuestion";
+import {auth, getFriendList} from "../../actions/backend";
 
 const App = () => {
-  const {setUser, popout, setPopout, changeRoute, activePanel} = useContext(Context);
+  const {user, setUser, popout, setPopout, changeRoute, activePanel, setFriendList} = useContext(Context);
   const {router, route} = useRoute();
 
 
@@ -36,21 +37,30 @@ const App = () => {
         schemeAttribute.value = data.scheme;
         document.body.attributes.setNamedItem(schemeAttribute);
       }
+      if (type === 'VKWebAppGetAuthTokenResult') {
+        if (data.scope != 'friends') return;
+
+        setFriendList(getFriendList(user.id, data.access_token));
+      }
     });
 
     async function fetchData() {
-      const user = await bridge.send('VKWebAppGetUserInfo');
-      setUser(user);
+      let newUser = await bridge.send('VKWebAppGetUserInfo');
+      newUser.name = newUser.first_name + ' ' + newUser.last_name;
+     // const authData = await auth(user.id, window.location.search);
+      setUser(newUser);
       setPopout(null);
+
     }
 
-     // fetchData();
+     fetchData();
   }, []);
 
   if (!activePanel) {
 
     return null;
   }
+
 
   return (
     <Fragment>

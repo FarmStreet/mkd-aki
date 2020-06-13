@@ -13,18 +13,28 @@ import Icon24Back from '@vkontakte/icons/dist/24/back';
 import {useRouter} from "react-router5";
 import {pages} from "../../router";
 import Context from "../../components/App/context";
+import bridge from '@vkontakte/vk-bridge';
+import {APP_ID} from "../../components/App/constants";
 
 //  TODO сделать условие вывода для пустых групп
 
 const GroupAdd = () => {
-  const {creatingGroup, setCreatingGroup, setCreatingGroupName, removeCreatingGroupMember, addGroup, groupList} = useContext(Context);
+  const {creatingGroup, setCreatingGroup, setCreatingGroupName, setCreatingGroupMembers, removeCreatingGroupMember, addGroup, groupList, friendList} = useContext(Context);
 
   const [error, setError] = useState('');
 
   const goToHome = () => window.history.back();
 
   const router = useRouter();
-  const goToFriendList = () => router.navigate(pages.FRIEND_LIST);
+  const goToFriendList = () => {
+
+    if (friendList.length == 0) {
+      bridge.send("VKWebAppGetAuthToken", {"app_id": APP_ID, "scope": "friends"});
+      return;
+    }
+
+    router.navigate(pages.FRIEND_LIST);
+  };
 
   const addNewGroup = () => {
     if (creatingGroup.name.length < 4) {

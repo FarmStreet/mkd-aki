@@ -25,9 +25,10 @@ const useCreatingGroupState = () => {
 
   const setCreatingGroupName = (name) => setCreatingGroup({ name: name, members: creatingGroup.members});
   const addCreatingGroupMembers = (members) => setCreatingGroup({name: creatingGroup.name, members: creatingGroup.members.concat(members)});
+  const setCreatingGroupMembers = (members) => setCreatingGroup({name: creatingGroup.name, members: members});
   const removeCreatingGroupMember = (memberId) => setCreatingGroup({name: creatingGroup.name, members: creatingGroup.members.filter(({id}) => id !== memberId)});
 
-  return { creatingGroup, setCreatingGroupName, removeCreatingGroupMember, addCreatingGroupMembers, setCreatingGroup };
+  return { creatingGroup, setCreatingGroupName, removeCreatingGroupMember, addCreatingGroupMembers, setCreatingGroup, setCreatingGroupMembers };
 };
 
 const useGroupState = () => {
@@ -36,6 +37,12 @@ const useGroupState = () => {
   const addGroup = (group) => setGroupList([...groupList, group]);
 
   return { groupList, addGroup };
+};
+
+const useFriendState = () => {
+  const [friendList, setFriendList] = useState([]);
+
+  return { friendList, setFriendList };
 };
 
 const useEventState = () => {
@@ -78,6 +85,7 @@ export const useAppState = () => {
   const groupState = useGroupState();
   const eventState = useEventState();
   const creatingGroupState = useCreatingGroupState();
+  const friendState = useFriendState();
 
   return {
     ...navState,
@@ -85,5 +93,6 @@ export const useAppState = () => {
     ...groupState,
     ...eventState,
     ...creatingGroupState,
+    ...friendState,
   };
 };

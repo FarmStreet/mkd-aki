@@ -1,5 +1,11 @@
 export const APP_ID = 7509087;
-export const URI_PATH = '';
+export const API_URL =  'https://keylordworkshop.ru/api/';
+
+export const AJAX_CONFIG = {
+  headers: {
+    "content-type": "application/json",
+  }
+};
 
 export const GROUP_LIST = [
   {

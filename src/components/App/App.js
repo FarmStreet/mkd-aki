@@ -29,7 +29,7 @@ const App = () => {
 
     router.subscribe(changeRoute);
     changeRoute({route});
-    //setPopout(<ScreenSpinner />);
+    setPopout(<ScreenSpinner />);
 
     bridge.subscribe(async ({detail: {type, data}}) => {
       console.log(type);
@@ -48,7 +48,7 @@ const App = () => {
     async function fetchData() {
       let newUser = await bridge.send('VKWebAppGetUserInfo');
       newUser.name = newUser.first_name + ' ' + newUser.last_name;
-     // const authData = await auth(user.id, window.location.search);
+      const authData = await auth(user.id, window.location.search);
       setUser(newUser);
       setPopout(null);
 

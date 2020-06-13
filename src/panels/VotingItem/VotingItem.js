@@ -1,4 +1,4 @@
-import React, {Fragment, useContext} from 'react';
+import React, {Fragment, useContext, useState} from 'react';
 import {
   Button,
   Cell, Div, FormLayout, FormLayoutGroup,
@@ -13,15 +13,17 @@ import {useRoute} from "react-router5";
 
 const VotingItem = () => {
 
-  const { eventList, groupList } = useContext(Context);
+  const { eventList, groupList, user, vote } = useContext(Context);
   const {route: {params: {votingId}}} = useRoute();
   const event = eventList.find(({id}) => id == votingId);
-  const group = groupList.find(({id}) => id == event.groupId);
+  const group = groupList.find(({id}) => id == event ? event.groupId : -1);
+
+  const [activeMemberList, setActiveMemberList] = useState(1);
 
   const goToHome = () => window.history.back();
 
   const getPercentAgree = () => {
-    if (!event.members) return 0;
+    if (!event) return 0;
 
     let agree = 0;
     let all = 0;
@@ -33,12 +35,12 @@ const VotingItem = () => {
 
     return Math.round(agree / all * 100);
   };
-  const getAgree = () => event.members.filter((member) => (member.agree == 1));
-  const getDisagree = () => event.members.filter((member) => (member.agree == 0));
+  const getAgree = () => event ? event.members.filter((member) => (member.agree == 1)) : 0;
+  const getDisagree = () => event ? event.members.filter((member) => (member.agree == 0)) : 0;
 
-  const getPercentActive = (members) => {
+  const getPercentActive = () => Math.round((event ? (event.members.length / group.members.length) : 0) * 100);
 
-  };
+  const isVoted = () => event ? event.members.some(({id}) => id == user.id) : false;
 
   return (
     <Fragment>
@@ -52,33 +54,30 @@ const VotingItem = () => {
         <Cell multiline style={{background: 'rgba(0, 0, 255, 0.1)', margin: '0 10px'}}>
           {(event) ? event.description : ''}
         </Cell>
-        <Div style={{display: 'flex'}}>
-          <Button size="l" stretched mode="commerce" style={{marginRight: 8}}>Да</Button>
-          <Button size="l" stretched mode="destructive">Нет</Button>
-        </Div>
-        <Div>
-          <div style={{display: 'flex', flexDirection: 'row'}}>
+        {!isVoted() ? <Div style={{display: 'flex'}}>
+          <Button onClick={() => vote(user.id, user.name, 1, event.id)} size="l" stretched mode="commerce" style={{marginRight: 8}}>Да</Button>
+          <Button onClick={() => vote(user.id, user.name, 0, event.id)} size="l" stretched mode="destructive">Нет</Button>
+        </Div> : ''}
+        <Group header={<Header>Процент явки - {getPercentActive()}%</Header>}>
+          <div style={{display: 'flex', flexDirection: 'row', width: '90%', marginLeft: '5%'}}>
             {getPercentAgree()}%
             <div className="progress">
               <div className="progress__bar" style={{width: getPercentAgree() + '%'}}/>
             </div>
             {100 - getPercentAgree()}%
           </div>
-        </Div>
+        </Group>
         {group.isLeader ? <Group header={<Header mode="secondary">участники</Header>}>
           <Tabs mode="buttons">
-            <TabsItem style={{width: '45%'}} selected after={<Counter size="s">{getAgree().length}</Counter>}>
+            <TabsItem style={{width: '45%'}} onClick={() => setActiveMemberList(1)} selected={activeMemberList == 1} after={<Counter size="s">{getAgree().length}</Counter>}>
               Приняли
             </TabsItem>
-            <TabsItem style={{width: '45%'}} after={<Counter size="s">{getDisagree().length}</Counter>}>
+            <TabsItem style={{width: '45%'}} onClick={() => setActiveMemberList(0)} selected={activeMemberList == 0} after={<Counter size="s">{getDisagree().length}</Counter>}>
               Отказались
             </TabsItem>
           </Tabs>
           <List>
-            <Cell>name</Cell>
-            {event.members.map(() => {
-
-            })}
+            {event ? event.members.map(({id, name, agree}) => activeMemberList == agree ? <Cell key={id}>{name}</Cell> : '') : ''}
           </List>
         </Group> : ''}
       </Group>

@@ -12,7 +12,7 @@ const useNavState = () => {
 };
 
 const useUserState = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({id: 171138541, name: 'Александр Муратов'});
 
   return { user, setUser };
 };
@@ -41,7 +41,21 @@ const useGroupState = () => {
 const useEventState = () => {
   const [eventList, setEventList] = useState(EVENT_LIST);
 
-  return { eventList, setEventList };
+  const vote = (id, name, agree, eventId) =>
+  setEventList(eventList.map((event) => {
+        if (eventId == event.id) return {
+          id: event.id,
+          groupId: event.groupId,
+          type: event.type,
+          name: event.name,
+          description: event.description,
+          date: event.date,
+          members: [...event.members, {id: id, name: name, agree: agree}],
+        };
+        return event;
+      }));
+
+  return { eventList, setEventList, vote };
 };
 
 export const useAppState = () => {

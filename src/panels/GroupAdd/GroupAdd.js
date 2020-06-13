@@ -40,7 +40,7 @@ const GroupAdd = () => {
     addGroup({
       id: groupList.length,
       name: creatingGroup.name,
-      memberList: creatingGroup.members,
+      members: creatingGroup.members,
       isLeader: 1
     });
     setCreatingGroup({

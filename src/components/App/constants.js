@@ -5,7 +5,7 @@ export const GROUP_LIST = [
   {
     id: 0,
     name: 'дом №5',
-    memberList: [
+    members: [
       {
         id: 171138541,
         name: 'Александр Муратов'
@@ -20,7 +20,7 @@ export const GROUP_LIST = [
   {
     id: 1,
     name: 'дом №4',
-    memberList: [
+    members: [
       {
         id: 171138541,
         name: 'Александр Муратов'
@@ -75,11 +75,6 @@ export const EVENT_LIST = [
     description: 'Предлагаем сделать из нашего замечательного дома огромного трансформера',
     date: '13.06.2020',
     members: [
-      {
-        id: 171138541,
-        name: 'Александр Муратов',
-        agree: 0,
-      },
       {
         id: 232938817,
         name: 'Руслан Канчурин',

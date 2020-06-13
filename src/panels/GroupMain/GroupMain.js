@@ -84,11 +84,11 @@ const GroupMain = () => {
             onClick={() => {setActiveOpen(3); setIsOpen(!isOpen)}}>
             {STATUS_LIST[3]}
           </Cell>
-          <Cell
+{/*          <Cell
             asideContent={activeOpen === 4 ? <Icon24Done fill="var(--accent)" /> : null}
             onClick={() => {setActiveOpen(4); setIsOpen(!isOpen)}}>
             {STATUS_LIST[4]}
-          </Cell>
+          </Cell>*/}
         </List>
       </PanelHeaderContext>
       <Group>

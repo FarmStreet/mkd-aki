@@ -24,10 +24,10 @@ const useCreatingGroupState = () => {
   });
 
   const setCreatingGroupName = (name) => setCreatingGroup({ name: name, members: creatingGroup.members});
-  const addCreatingGroupMember = (member) => setCreatingGroup({name: creatingGroup.name, members: [...creatingGroup.members, member]});
+  const addCreatingGroupMembers = (members) => setCreatingGroup({name: creatingGroup.name, members: creatingGroup.members.concat(members)});
   const removeCreatingGroupMember = (memberId) => setCreatingGroup({name: creatingGroup.name, members: creatingGroup.members.filter(({id}) => id !== memberId)});
 
-  return { creatingGroup, setCreatingGroupName, removeCreatingGroupMember, addCreatingGroupMember };
+  return { creatingGroup, setCreatingGroupName, removeCreatingGroupMember, addCreatingGroupMembers, setCreatingGroup };
 };
 
 const useGroupState = () => {

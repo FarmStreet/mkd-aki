@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useContext, useState} from 'react';
 import {
   Avatar,
   Button,
@@ -13,12 +13,33 @@ import Icon24DoneOutline from '@vkontakte/icons/dist/24/done_outline';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 import {useRouter} from "react-router5";
 import {pages} from "../../router";
+import Context from "../../components/App/context";
+import {FRIEND_LIST} from "../../components/App/constants";
 
 //  TODO сделать условие вывода для пустых групп
 
 const FriendList = () => {
+  const {addCreatingGroupMembers, creatingGroup} = useContext(Context);
+  const [isActiveButton, setIsActiveButton] = useState(false);
+  const [newMembers, setNewMembers] = useState([]);
+
+  const toggleMember = (member) => {
+
+    if (newMembers.some(({id}) => id == member.id)) return setNewMembers(newMembers.filter(({id}) => id !== member.id));
+
+    return setNewMembers([...newMembers, member]);
+  };
 
   const goToHome = () => window.history.back();
+
+  const isIssetMember = (memberId) => creatingGroup.members.some(({id}) => id == memberId);
+
+  async function addMembers() {
+    if (isActiveButton || !newMembers) return;
+    setIsActiveButton(true);
+    addCreatingGroupMembers(newMembers);
+    goToHome();
+  }
 
   return (
     <Fragment>
@@ -27,41 +48,16 @@ const FriendList = () => {
       </PanelHeaderSimple>
       <Group header={<Header mode="secondary">Друзья</Header>} style={{paddingBottom: '70px'}}>
         <List>
-          <Cell selectable>Артур Стамбульцян</Cell>
-          <Cell selectable>Тимофей Чаптыков</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
-          <Cell selectable>Влад Анесов</Cell>
+          {FRIEND_LIST.map(({id, name}) => isIssetMember(id) ? '' : <Cell onChange={() => toggleMember({id: id, name: name})} key={id} selectable>{name}</Cell>)}
         </List>
       </Group>
       <FixedLayout vertical="bottom">
         <Div style={{margin: '8px'}}>
-          <Button size="xl" mode="primary">добавить</Button>
+          <Button size="xl" mode="primary" onClick={() => addMembers()}>добавить</Button>
         </Div>
       </FixedLayout>
     </Fragment>
-  )
+  );
 };
 
 export default FriendList;

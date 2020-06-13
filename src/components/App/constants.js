@@ -75,3 +75,14 @@ export const EVENT_LIST = {
     },
   ],
 };
+
+export const FRIEND_LIST = [
+  {
+    id: 171138541,
+    name: 'Александр Муратов'
+  },
+  {
+    id: 232938817,
+    name: 'Руслан Канчурин'
+  },
+];

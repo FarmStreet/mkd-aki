@@ -17,7 +17,7 @@ import Context from "../../components/App/context";
 //  TODO сделать условие вывода для пустых групп
 
 const GroupAdd = () => {
-  const {creatingGroup, setCreatingGroupName, removeCreatingGroupMember} = useContext(Context);
+  const {creatingGroup, setCreatingGroup, setCreatingGroupName, removeCreatingGroupMember, addGroup, groupList} = useContext(Context);
 
   const [error, setError] = useState('');
 
@@ -26,13 +26,33 @@ const GroupAdd = () => {
   const router = useRouter();
   const goToFriendList = () => router.navigate(pages.FRIEND_LIST);
 
-  const addGroup = (group) => {
+  const addNewGroup = () => {
+    if (creatingGroup.name.length < 4) {
+      setError('Слишком короткое название');
+      return;
+    }
 
+    if (creatingGroup.name.length > 20) {
+      setError('Слишком длинное название');
+      return;
+    }
+
+    addGroup({
+      id: groupList.length,
+      name: creatingGroup.name,
+      memberList: creatingGroup.members,
+      isLeader: 1
+    });
+    setCreatingGroup({
+      name: '',
+      members: [],
+    });
+    goToHome();
   };
 
   return (
     <Fragment>
-      <PanelHeaderSimple left={<Icon24Back onClick={() => {goToHome()}}/>} right={<Icon24DoneOutline/>}>
+      <PanelHeaderSimple left={<Icon24Back onClick={() => {goToHome()}}/>} right={<Icon24DoneOutline onClick={() => addNewGroup()}/>}>
         Добавить группу
       </PanelHeaderSimple>
       <FormLayout>

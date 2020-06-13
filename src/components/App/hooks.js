@@ -39,9 +39,9 @@ const useGroupState = () => {
 };
 
 const useEventState = () => {
-  const [event, setEvent] = useState(EVENT_LIST);
+  const [eventList, setEventList] = useState(EVENT_LIST);
 
-  return { event, setEvent };
+  return { eventList, setEventList };
 };
 
 export const useAppState = () => {

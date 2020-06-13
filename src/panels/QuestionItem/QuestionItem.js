@@ -19,7 +19,7 @@ const QuestionItem = () => {
   const { eventList, groupList, answerQuestion } = useContext(Context);
   const {route: {params: {questionId}}} = useRoute();
   const event = (eventList.find(({id}) => id == questionId)) || {answer: ''};
-  const group = groupList.find(({id}) => id == event ? event.groupId : -1);
+  const group = (groupList.find(({id}) => id == (event ? event.groupId : -1))) || {isLeader: 0};
 
   const goToHome = () => window.history.back();
 
@@ -47,16 +47,19 @@ const QuestionItem = () => {
         </Cell>
       </Div>
       <Div>
-        {event.answer ? <Cell multiline style={{background: 'rgba(0, 255, 0, 0.1)', marginLeft: '20%'}}>
-          {(event) ? event.answer : ''}
+        {event.answer
+          ? <Cell multiline style={{background: 'rgba(0, 255, 0, 0.1)', marginLeft: '20%'}}>
+          {(event)
+            ? event.answer
+            : ''}
         </Cell>
-          : group.isLeader ? <FormLayout style={{paddingBottom: '60px'}}><Textarea
+          : (group.isLeader ? <FormLayout style={{paddingBottom: '60px'}}><Textarea
             top="Форма для ответа"
             value={answer}
             onChange={(e) => setAnswer(e.currentTarget.value)}
             status={error ? 'error' : ''}
             bottom={error}
-          /></FormLayout> : ''}
+          /></FormLayout> : '')}
       </Div>
       {!event.answer && group.isLeader ? <FixedLayout vertical="bottom">
         <Div style={{margin: '8px'}}>

@@ -12,6 +12,7 @@ export const pages = {
   QUESTION_ITEM: 'question_item',
   VOTING_ITEM: 'voting_item',
   WORK_ITEM: 'work_item',
+  ASK_QUESTION: 'ask_question',
 };
 
 const routes = [
@@ -25,6 +26,7 @@ const routes = [
   { name: pages.QUESTION_ITEM, path: '/question_item/:questionId' },
   { name: pages.VOTING_ITEM, path: '/voting_item/:votingId' },
   { name: pages.WORK_ITEM, path: '/work_item/:workId' },
+  { name: pages.ASK_QUESTION, path: '/ask_question/:groupId' },
 ];
 
 export const initialize = () => {

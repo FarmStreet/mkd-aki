@@ -16,7 +16,7 @@ const VotingItem = () => {
   const { eventList, groupList, user, vote } = useContext(Context);
   const {route: {params: {votingId}}} = useRoute();
   const event = eventList.find(({id}) => id == votingId);
-  const group = groupList.find(({id}) => id == event ? event.groupId : -1);
+  const group = (groupList.find(({id}) => id == (event ? event.groupId : -1))) || {isLeader: 0};
 
   const [activeMemberList, setActiveMemberList] = useState(1);
 

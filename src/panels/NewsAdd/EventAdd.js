@@ -44,7 +44,7 @@ const EventAdd = () => {
     if (activeTab == 0) {
 
       if (newDesc.length < 4) {
-        setError('Слишком короткое описание!');
+        setDescError('Слишком короткое описание!');
         return;
       }
 
@@ -55,14 +55,14 @@ const EventAdd = () => {
         name: title,
         message: newDesc,
         date: '13.06.2020'
-      })
+      });
       goToHome();
     }
 
     if (activeTab == 1) {
 
       if (voteDesc.length < 4) {
-        setError('Слишком короткое описание!');
+        setDescError('Слишком короткое описание!');
         return;
       }
 

@@ -16,14 +16,17 @@ import Icon24Help from '@vkontakte/icons/dist/24/help';
 import Icon24Note from '@vkontakte/icons/dist/24/note';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 import Icon24Done from '@vkontakte/icons/dist/24/done';
+import Icon24Message from '@vkontakte/icons/dist/24/message';
 import {STATUS_LIST} from "../../components/App/constants";
 import Context from "../../components/App/context";
 
 const GroupMain = () => {
 
   const {route: {params: {groupId}}} = useRoute();
-  const { eventList } = useContext(Context);
+  const { eventList, groupList } = useContext(Context);
   const filteredEventList = eventList.filter(event => event.groupId == groupId);
+  const group = (groupList.find(({id}) => id == groupId)) || {isLeader: 0};
+
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeOpen, setActiveOpen] = useState(0);
@@ -43,6 +46,7 @@ const GroupMain = () => {
   const goToQuestionItem = (id) => router.navigate(pages.QUESTION_ITEM, {questionId: id});
   const goToVotingItem = (id) => router.navigate(pages.VOTING_ITEM, {votingId: id});
   const goToWorkItem = (id) => router.navigate(pages.WORK_ITEM, {workId: id});
+  const goToAskQuestion = () => router.navigate(pages.ASK_QUESTION, {groupId: groupId});
 
   const goList = {
     1: (id) => goToNewItem(id),
@@ -53,7 +57,7 @@ const GroupMain = () => {
 
   return (
     <Fragment>
-      <PanelHeaderSimple separator={false} left={<Icon24Back onClick={() => {goToHome()}} />} right={<Icon24AddOutline onClick={() => {goToNewsAdd()}} />}>
+      <PanelHeaderSimple separator={false} left={<Icon24Back onClick={() => {goToHome()}} />} right={group ? group.isLeader ? <Icon24AddOutline onClick={() => {goToNewsAdd()}} /> : <Icon24Message onClick={() => {goToAskQuestion()}} /> : ''}>
         <PanelHeaderContent
           aside={<Icon16Dropdown style={{ transform: `rotate(${isOpen ? '180deg' : '0'})` }} />}
           onClick={() => setIsOpen(!isOpen)}

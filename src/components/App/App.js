@@ -15,6 +15,7 @@ import NewItem from "../../panels/NewItem/NewItem";
 import QuestionItem from "../../panels/QuestionItem/QuestionItem";
 import VotingItem from "../../panels/VotingItem/VotingItem";
 import EventAdd from "../../panels/NewsAdd/EventAdd";
+import AskQuestion from "../../panels/AskQuestion/AskQuestion";
 
 const App = () => {
   const {setUser, popout, setPopout, changeRoute, activePanel} = useContext(Context);
@@ -77,6 +78,12 @@ const App = () => {
         </Panel>
         <Panel id={pages.EVENT_ADD}>
           <EventAdd/>
+        </Panel>
+        <Panel id={pages.EVENT_ADD}>
+          <EventAdd/>
+        </Panel>
+        <Panel id={pages.ASK_QUESTION}>
+          <AskQuestion/>
         </Panel>
       </View>
     </Fragment>

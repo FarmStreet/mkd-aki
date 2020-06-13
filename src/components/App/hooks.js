@@ -56,9 +56,10 @@ const useEventState = () => {
       }));
   const addEvent = (event) => setEventList([...eventList, event]);
   const answerQuestion = (id, answer) => setEventList(eventList.map(event => {
-    if (event.id = id) return {
+    if (event.id == id) return {
       id: event.id,
       type: event.type,
+      from: event.from,
       groupId: event.groupId,
       name: event.name,
       question: event.question,

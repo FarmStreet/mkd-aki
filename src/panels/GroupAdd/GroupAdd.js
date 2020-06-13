@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState, useContext} from 'react';
 import {
   Avatar,
   Button,
@@ -12,20 +12,27 @@ import Icon24DoneOutline from '@vkontakte/icons/dist/24/done_outline';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 import {useRouter} from "react-router5";
 import {pages} from "../../router";
+import Context from "../../components/App/context";
 
 //  TODO сделать условие вывода для пустых групп
 
 const GroupAdd = () => {
+  const {creatingGroup, setCreatingGroupName, removeCreatingGroupMember} = useContext(Context);
 
-  let error = '';
+  const [error, setError] = useState('');
+
   const goToHome = () => window.history.back();
 
   const router = useRouter();
   const goToFriendList = () => router.navigate(pages.FRIEND_LIST);
 
+  const addGroup = (group) => {
+
+  };
+
   return (
     <Fragment>
-      <PanelHeaderSimple left={<Icon24Back onClick={() => {goToHome()}} />} right={<Icon24DoneOutline/>}>
+      <PanelHeaderSimple left={<Icon24Back onClick={() => {goToHome()}}/>} right={<Icon24DoneOutline/>}>
         Добавить группу
       </PanelHeaderSimple>
       <FormLayout>
@@ -33,19 +40,16 @@ const GroupAdd = () => {
           type="text"
           top="Название"
           name="name"
-          value=""
-          onChange={() => {}}
-          status={error ? 'error' : 'valid'}
+          value={creatingGroup.name}
+          onChange={(e) => setCreatingGroupName(e.currentTarget.value)}
+          status={error ? 'error' : ''}
           bottom={error}
         />
         <FormLayoutGroup top="участники">
           <Button mode="commerce" onClick={() => {goToFriendList()}}>Добавить</Button>
           <List>
-            <List>
-                <Cell removable onRemove={() => {}}>name</Cell>
-                <Cell removable onRemove={() => {}}>name</Cell>
-                <Cell removable onRemove={() => {}}>name</Cell>
-            </List>
+            {creatingGroup.members.map(({id, name}) => <Cell key={id} removable
+                                                             onRemove={() => removeCreatingGroupMember(id)}>{name}</Cell>)}
           </List>
         </FormLayoutGroup>
       </FormLayout>

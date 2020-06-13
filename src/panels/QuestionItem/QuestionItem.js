@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useContext} from 'react';
 import {
   Cell,
   Div, FixedLayout, Group,
@@ -7,8 +7,15 @@ import {
 } from "@vkontakte/vkui";
 
 import Icon24Back from '@vkontakte/icons/dist/24/back';
+import {useRoute} from "react-router5";
+import Context from "../../components/App/context";
 
 const QuestionItem = () => {
+
+  const { eventList } = useContext(Context);
+  const {route: {params: {questionId}}} = useRoute();
+
+  const event = eventList.find(({id}) => id == questionId);
 
   const goToHome = () => window.history.back();
 
@@ -18,13 +25,16 @@ const QuestionItem = () => {
         Вопрос
       </PanelHeaderSimple>
       <Div>
+        {event.name}
+      </Div>
+      <Div>
         <Cell multiline style={{width: '80%', background: 'rgba(0, 0, 255, 0.1)'}}>
-          Тут огромный текст Тут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текст
+          {event.question}
         </Cell>
       </Div>
       <Div>
         <Cell multiline style={{background: 'rgba(0, 255, 0, 0.1)', marginLeft: '20%'}}>
-          Тут огромный текст Тут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текстТут огромный текст
+          {event.answer}
         </Cell>
       </Div>
     </Fragment>

@@ -3,7 +3,7 @@ import {
   Button,
   Cell, Div, FormLayout, FormLayoutGroup,
   Group, Header, List,
-  PanelHeaderSimple, Progress, Tabs, TabsItem, Counter
+  PanelHeaderSimple, Progress, Tabs, TabsItem, Counter, Headline
 } from "@vkontakte/vkui";
 
 import './VotingItem.css';
@@ -48,7 +48,7 @@ const VotingItem = () => {
         Голосование
       </PanelHeaderSimple>
       <Div>
-        {(event) ? event.name : ''}
+        <Headline weight="medium" style={{marginBottom: 16}}>{(event) ? event.name : ''}</Headline>
       </Div>
       <Group>
         <Cell multiline style={{background: 'rgba(0, 0, 255, 0.1)', margin: '0 10px'}}>

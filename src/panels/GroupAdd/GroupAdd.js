@@ -3,7 +3,7 @@ import {
   Avatar,
   Button,
   Cell,
-  Div, FormLayout, FormLayoutGroup, Input,
+  Div, FixedLayout, FormLayout, FormLayoutGroup, Input,
   List,
   PanelHeaderSimple,
 } from "@vkontakte/vkui";
@@ -52,7 +52,7 @@ const GroupAdd = () => {
 
   return (
     <Fragment>
-      <PanelHeaderSimple left={<Icon24Back onClick={() => {goToHome()}}/>} right={<Icon24DoneOutline onClick={() => addNewGroup()}/>}>
+      <PanelHeaderSimple left={<Icon24Back onClick={() => {goToHome()}}/>}>
         Добавить группу
       </PanelHeaderSimple>
       <FormLayout style={{paddingBottom: '60px'}}>
@@ -73,6 +73,11 @@ const GroupAdd = () => {
           </List>
         </FormLayoutGroup>
       </FormLayout>
+      <FixedLayout vertical="bottom">
+        <Div style={{margin: '8px'}}>
+          <Button size="xl" mode="commerce" onClick={() => addNewGroup()}>готово</Button>
+        </Div>
+      </FixedLayout>
     </Fragment>
   )
 };

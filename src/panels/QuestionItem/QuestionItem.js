@@ -2,7 +2,7 @@ import React, {Fragment, useContext, useState} from 'react';
 import {
   Button,
   Cell,
-  Div, FixedLayout, FormLayout, Group,
+  Div, FixedLayout, FormLayout, Group, Headline,
   List, PanelHeaderContent,
   PanelHeaderSimple, Textarea,
 } from "@vkontakte/vkui";
@@ -39,7 +39,7 @@ const QuestionItem = () => {
         Вопрос
       </PanelHeaderSimple>
       <Div>
-        {(event) ? event.name : ''}
+        <Headline weight="medium" style={{marginBottom: 16}}>{(event) ? event.name : ''}</Headline>
       </Div>
       <Div>
         <Cell multiline style={{width: '80%', background: 'rgba(0, 0, 255, 0.1)'}}>

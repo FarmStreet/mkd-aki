@@ -1,7 +1,7 @@
 import React, {Fragment, useContext} from 'react';
 import {
   Cell, Div,
-  Group,
+  Group, Headline,
   PanelHeaderSimple,
 } from "@vkontakte/vkui";
 
@@ -23,7 +23,7 @@ const NewItem = () => {
         Новость
       </PanelHeaderSimple>
       <Div>
-        {(event) ? event.name : ''}
+        <Headline weight="medium" style={{marginBottom: 16}}>{(event) ? event.name : ''}</Headline>
       </Div>
       <Group>
         <Cell multiline>

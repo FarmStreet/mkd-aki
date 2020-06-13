@@ -58,7 +58,7 @@ const GroupMain = () => {
 
   return (
     <Fragment>
-      <PanelHeaderSimple separator={false} left={<Icon24Back onClick={() => {goToHome()}} />}>
+      <PanelHeaderSimple left={<Icon24Back onClick={() => {goToHome()}} />}>
         <PanelHeaderContent
           aside={<Icon16Dropdown style={{ transform: `rotate(${isOpen ? '180deg' : '0'})` }} />}
           onClick={() => setIsOpen(!isOpen)}

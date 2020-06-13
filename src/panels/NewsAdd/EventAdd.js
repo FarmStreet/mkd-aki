@@ -74,7 +74,7 @@ const EventAdd = () => {
         description: voteDesc,
         date: '13.06.2020',
         members: []
-      })
+      });
       goToHome();
     }
   };

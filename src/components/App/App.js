@@ -79,9 +79,6 @@ const App = () => {
         <Panel id={pages.EVENT_ADD}>
           <EventAdd/>
         </Panel>
-        <Panel id={pages.EVENT_ADD}>
-          <EventAdd/>
-        </Panel>
         <Panel id={pages.ASK_QUESTION}>
           <AskQuestion/>
         </Panel>

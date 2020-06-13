@@ -18,7 +18,7 @@ const routes = [
   { name: pages.HOME, path: '/' },
   { name: pages.GROUP_ADD, path: '/group_add' },
   { name: pages.GROUP_SETTINGS, path: '/group_settings' },
-  { name: pages.EVENT_ADD, path: '/event_add' },
+  { name: pages.EVENT_ADD, path: '/event_add/:groupId' },
   { name: pages.GROUP_MAIN, path: '/group_main/:groupId' },
   { name: pages.FRIEND_LIST, path: '/friend_list' },
   { name: pages.NEW_ITEM, path: '/new_item/:newId' },

@@ -31,7 +31,7 @@ const Home = () => {
       </Div>
         : <List>
           {
-            groupList.map(({ name, id, isLeader }) => (
+            groupList.reverse().map(({ name, id, isLeader }) => (
               <Cell key={id} asideContent={isLeader ? <Icon24Settings onClick={() => goToGroupAdd(id)} /> : ''}
                     description={isLeader ? 'Вы являетесь организатором данной группы' : ''}
                     ><a onClick={() => {goToGroup(id)}}>{name}</a></Cell>))

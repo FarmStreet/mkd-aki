@@ -25,7 +25,6 @@ const GroupMain = () => {
   const { eventList } = useContext(Context);
   const filteredEventList = eventList.filter(event => event.groupId == groupId);
 
-
   const [isOpen, setIsOpen] = useState(false);
   const [activeOpen, setActiveOpen] = useState(0);
 
@@ -39,7 +38,7 @@ const GroupMain = () => {
   };
 
   const router = useRouter();
-  const goToNewsAdd = (id) => router.navigate(pages.EVENT_ADD, {newId: id});
+  const goToNewsAdd = () => router.navigate(pages.EVENT_ADD, {groupId: groupId});
   const goToNewItem = (id) => router.navigate(pages.NEW_ITEM, {newId: id});
   const goToQuestionItem = (id) => router.navigate(pages.QUESTION_ITEM, {questionId: id});
   const goToVotingItem = (id) => router.navigate(pages.VOTING_ITEM, {votingId: id});
@@ -93,7 +92,7 @@ const GroupMain = () => {
       </PanelHeaderContext>
       <Group>
         <List>
-          {filteredEventList.map(({id, type, name, date}) => (activeOpen == type || activeOpen == 0) ? <Cell key={id} onClick={() => goList[type](id)} before={iconList[type]} description={date}>{name}</Cell> : '')}
+          {filteredEventList.reverse().map(({id, type, name, date}) => (activeOpen == type || activeOpen == 0) ? <Cell key={id} onClick={() => goList[type](id)} before={iconList[type]} description={date}>{name}</Cell> : '')}
         </List>
       </Group>
     </Fragment>

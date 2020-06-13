@@ -33,7 +33,7 @@ const VotingItem = () => {
       if (member.agree == 1) agree += 1;
     });
 
-    return Math.round(agree / all * 100);
+    return Math.round(agree / (all || 1) * 100);
   };
   const getAgree = () => event ? event.members.filter((member) => (member.agree == 1)) : 0;
   const getDisagree = () => event ? event.members.filter((member) => (member.agree == 0)) : 0;

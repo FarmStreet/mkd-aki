@@ -54,8 +54,9 @@ const useEventState = () => {
         };
         return event;
       }));
+  const addEvent = (event) => setEventList([...eventList, event]);
 
-  return { eventList, setEventList, vote };
+  return { eventList, setEventList, vote, addEvent };
 };
 
 export const useAppState = () => {

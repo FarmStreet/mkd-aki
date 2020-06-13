@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {EVENT_LIST, GROUP_LIST} from "./constants";
+import {apiRequest} from "../../actions/backend";
 
 const useNavState = () => {
   const [activePanel, setActivePanel] = useState(null);
@@ -40,9 +41,32 @@ const useGroupState = () => {
 };
 
 const useFriendState = () => {
+
   const [friendList, setFriendList] = useState([]);
 
-  return { friendList, setFriendList };
+  const updateFriendList = (uid, access_token) => {
+    apiRequest('friends.get', {
+        user_id: uid,
+        order: 'random',
+        fields: 'first_name,last_name',
+      }, access_token,
+      function(users) {
+        let friends = [];
+        users.items.forEach(user => {
+          user.name = user.first_name + ' ' + user.last_name;
+          friends.push({
+            id: user.id,
+            name: user.name
+          })
+        });
+        setFriendList(friends);
+      },
+      function(er) {
+        return []
+      });
+  };
+
+  return { friendList, setFriendList, updateFriendList };
 };
 
 const useEventState = () => {

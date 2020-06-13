@@ -19,7 +19,7 @@ import AskQuestion from "../../panels/AskQuestion/AskQuestion";
 import {auth, getFriendList} from "../../actions/backend";
 
 const App = () => {
-  const {user, setUser, popout, setPopout, changeRoute, activePanel, setFriendList} = useContext(Context);
+  const {user, setUser, popout, setPopout, changeRoute, activePanel, updateFriendList} = useContext(Context);
   const {router, route} = useRoute();
 
 
@@ -31,16 +31,17 @@ const App = () => {
     changeRoute({route});
     //setPopout(<ScreenSpinner />);
 
-    bridge.subscribe(({detail: {type, data}}) => {
+    bridge.subscribe(async ({detail: {type, data}}) => {
+      console.log(type);
       if (type === 'VKWebAppUpdateConfig') {
         const schemeAttribute = document.createAttribute('scheme');
         schemeAttribute.value = data.scheme;
         document.body.attributes.setNamedItem(schemeAttribute);
       }
-      if (type === 'VKWebAppGetAuthTokenResult') {
+      if (type === 'VKWebAppAccessTokenReceived') {
         if (data.scope != 'friends') return;
 
-        setFriendList(getFriendList(user.id, data.access_token));
+        updateFriendList(user.id, data.access_token);
       }
     });
 

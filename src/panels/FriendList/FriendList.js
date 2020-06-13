@@ -24,10 +24,6 @@ const FriendList = () => {
   const [isActiveButton, setIsActiveButton] = useState(false);
   const [newMembers, setNewMembers] = useState([]);
 
-  if (!friendList) {
-    bridge.send("VKWebAppGetAuthToken", {"app_id": APP_ID, "scope": "friends"});
-  }
-
   const toggleMember = (member) => {
 
     if (newMembers.some(({id}) => id == member.id)) return setNewMembers(newMembers.filter(({id}) => id !== member.id));

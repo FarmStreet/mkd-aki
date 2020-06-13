@@ -1,7 +1,9 @@
+import React, {useContext} from 'react';
 import axios from "axios";
 import bridge from '@vkontakte/vk-bridge';
 import {AJAX_CONFIG, API_URL} from "../components/App/constants";
 import {changeVkId} from "./help";
+import Context from "../components/App/context";
 
 export async function auth(id, params) {
 
@@ -24,9 +26,11 @@ export async function auth(id, params) {
   }
 }
 
-export async function getFriendList(uid, access_token) {
+/*export async function getFriendList(uid, access_token) {
 
-    return apiRequest('friends.get', {
+    const {setFriendList} = useContext(Context);
+
+    apiRequest('friends.get', {
         user_id: uid,
         order: 'random',
         fields: 'first_name,last_name',
@@ -40,19 +44,18 @@ export async function getFriendList(uid, access_token) {
             name: user.name
           })
         });
-        console.log(friends);
-        return friends
+        setFriendList(friends);
       },
       function(er) {
         return []
       });
-}
+}*/
 
 function getNewRequestId() {
   return (Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)).toString();
 }
 
-function apiRequest(method, params = {}, accessToken = '', successCallback = undefined, errorCallback = undefined) {
+export function apiRequest(method, params = {}, accessToken = '', successCallback = undefined, errorCallback = undefined) {
   let requestId = getNewRequestId();
   if (successCallback !== undefined || errorCallback !== undefined) {
     let clb = function callback(e) {

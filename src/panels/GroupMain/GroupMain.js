@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useContext} from 'react';
+import React, {Fragment, useState, useContext, useEffect} from 'react';
 import {
   Cell,
   Div, FixedLayout, Group,
@@ -24,6 +24,7 @@ const GroupMain = () => {
   const {route: {params: {groupId}}} = useRoute();
   const { eventList } = useContext(Context);
   const filteredEventList = eventList.filter(event => event.groupId == groupId);
+
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeOpen, setActiveOpen] = useState(0);

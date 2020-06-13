@@ -14,7 +14,6 @@ const QuestionItem = () => {
 
   const { eventList } = useContext(Context);
   const {route: {params: {questionId}}} = useRoute();
-
   const event = eventList.find(({id}) => id == questionId);
 
   const goToHome = () => window.history.back();
@@ -25,16 +24,16 @@ const QuestionItem = () => {
         Вопрос
       </PanelHeaderSimple>
       <Div>
-        {event.name}
+        {(event) ? event.name : ''}
       </Div>
       <Div>
         <Cell multiline style={{width: '80%', background: 'rgba(0, 0, 255, 0.1)'}}>
-          {event.question}
+          {(event) ? event.question : ''}
         </Cell>
       </Div>
       <Div>
         <Cell multiline style={{background: 'rgba(0, 255, 0, 0.1)', marginLeft: '20%'}}>
-          {event.answer}
+          {(event) ? event.answer : ''}
         </Cell>
       </Div>
     </Fragment>

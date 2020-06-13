@@ -14,6 +14,7 @@ import GroupMain from "../../panels/GroupMain/GroupMain";
 import NewItem from "../../panels/NewItem/NewItem";
 import QuestionItem from "../../panels/QuestionItem/QuestionItem";
 import VotingItem from "../../panels/VotingItem/VotingItem";
+import EventAdd from "../../panels/NewsAdd/EventAdd";
 
 const App = () => {
   const {setUser, popout, setPopout, changeRoute, activePanel} = useContext(Context);
@@ -53,26 +54,29 @@ const App = () => {
   return (
     <Fragment>
       <View activePanel={activePanel} popout={popout} header={false}>
-        <Panel id={pages.HOME} separator={true}>
+        <Panel id={pages.HOME}>
           <Home/>
         </Panel>
-        <Panel id={pages.GROUP_ADD} separator={true}>
+        <Panel id={pages.GROUP_ADD}>
           <GroupAdd/>
         </Panel>
-        <Panel id={pages.FRIEND_LIST} separator={true}>
+        <Panel id={pages.FRIEND_LIST}>
           <FriendList/>
         </Panel>
-        <Panel id={pages.GROUP_MAIN} separator={false}>
+        <Panel id={pages.GROUP_MAIN}>
           <GroupMain/>
         </Panel>
-        <Panel id={pages.NEW_ITEM} separator={false}>
+        <Panel id={pages.NEW_ITEM}>
           <NewItem/>
         </Panel>
-        <Panel id={pages.QUESTION_ITEM} separator={false}>
+        <Panel id={pages.QUESTION_ITEM}>
           <QuestionItem/>
         </Panel>
-        <Panel id={pages.VOTING_ITEM} separator={false}>
+        <Panel id={pages.VOTING_ITEM}>
           <VotingItem/>
+        </Panel>
+        <Panel id={pages.EVENT_ADD}>
+          <EventAdd/>
         </Panel>
       </View>
     </Fragment>

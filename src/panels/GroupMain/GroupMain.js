@@ -21,6 +21,7 @@ const GroupMain = () => {
   const goToHome = () => window.history.back();
 
   const router = useRouter();
+  const goToNewsAdd = (id) => router.navigate(pages.EVENT_ADD, {newId: id});
   const goToNewItem = (id) => router.navigate(pages.NEW_ITEM, {newId: id});
   const goToQuestionItem = (id) => router.navigate(pages.QUESTION_ITEM, {questionId: id});
   const goToVotingItem = (id) => router.navigate(pages.VOTING_ITEM, {votingId: id});
@@ -28,7 +29,7 @@ const GroupMain = () => {
 
   return (
     <Fragment>
-      <PanelHeaderSimple left={<Icon24Back onClick={() => {goToHome()}} />} right={<Icon24AddOutline onClick={() => {goToHome()}} />}>
+      <PanelHeaderSimple separator={false} left={<Icon24Back onClick={() => {goToHome()}} />} right={<Icon24AddOutline onClick={() => {goToNewsAdd()}} />}>
         <PanelHeaderContent
           aside={<Icon16Dropdown style={{ transform: `rotate(${1 ? '180deg' : '0'})` }} />}
           onClick={() => {}}

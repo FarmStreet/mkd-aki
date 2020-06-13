@@ -9,6 +9,7 @@ import {pages} from "../../router";
 import {useRouter} from "react-router5";
 
 import Icon24AddOutline from '@vkontakte/icons/dist/24/add_outline';
+import Icon24Settings from '@vkontakte/icons/dist/24/settings';
 
 const Home = () => {
 
@@ -26,7 +27,7 @@ const Home = () => {
         Создайте свою или дождитесь приглашения.
       </Div>*/}
       <List>
-        <Cell onClick={() => {goToGroup()}} description="Вы являетесь организатором данной группы">Группа дома №3</Cell>
+        <Cell onClick={() => {goToGroup()}} description="Вы являетесь организатором данной группы"  asideContent={<Icon24Settings />}>Группа дома №3</Cell>
         <Cell onClick={() => {goToGroup()}}>Группа дома №4</Cell>
       </List>
     </Fragment>

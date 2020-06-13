@@ -1,5 +1,6 @@
 import React, {Fragment, useState, useContext, useEffect} from 'react';
 import {
+  Button,
   Cell,
   Div, FixedLayout, Group,
   List, PanelHeaderContent, PanelHeaderContext,
@@ -57,7 +58,7 @@ const GroupMain = () => {
 
   return (
     <Fragment>
-      <PanelHeaderSimple separator={false} left={<Icon24Back onClick={() => {goToHome()}} />} right={group ? group.isLeader ? <Icon24AddOutline onClick={() => {goToNewsAdd()}} /> : <Icon24Message onClick={() => {goToAskQuestion()}} /> : ''}>
+      <PanelHeaderSimple separator={false} left={<Icon24Back onClick={() => {goToHome()}} />}>
         <PanelHeaderContent
           aside={<Icon16Dropdown style={{ transform: `rotate(${isOpen ? '180deg' : '0'})` }} />}
           onClick={() => setIsOpen(!isOpen)}
@@ -94,11 +95,18 @@ const GroupMain = () => {
           </Cell>*/}
         </List>
       </PanelHeaderContext>
-      <Group>
+      <Group style={{paddingBottom: '60px'}}>
         <List>
           {filteredEventList.reverse().map(({id, type, name, date}) => (activeOpen == type || activeOpen == 0) ? <Cell key={id} onClick={() => goList[type](id)} before={iconList[type]} description={date}>{name}</Cell> : '')}
         </List>
       </Group>
+      <FixedLayout vertical="bottom">
+        <Div style={{margin: '8px'}}>
+          <Button size="xl" mode="commerce" onClick={() => group ? group.isLeader ? goToNewsAdd() : goToAskQuestion() : ''}>{group ? group.isLeader ? 'создать событие' : 'задать вопрос' : ''}</Button>
+
+
+        </Div>
+      </FixedLayout>
     </Fragment>
   )
 };

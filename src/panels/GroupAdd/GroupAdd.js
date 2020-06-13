@@ -55,7 +55,7 @@ const GroupAdd = () => {
       <PanelHeaderSimple left={<Icon24Back onClick={() => {goToHome()}}/>} right={<Icon24DoneOutline onClick={() => addNewGroup()}/>}>
         Добавить группу
       </PanelHeaderSimple>
-      <FormLayout>
+      <FormLayout style={{paddingBottom: '60px'}}>
         <Input
           type="text"
           top="Название"

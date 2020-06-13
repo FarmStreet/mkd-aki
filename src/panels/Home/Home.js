@@ -1,7 +1,8 @@
 import React, {Fragment, useContext} from 'react';
 import {
+  Button,
   Cell,
-  Div,
+  Div, FixedLayout,
   List,
   PanelHeaderSimple,
 } from "@vkontakte/vkui";
@@ -21,7 +22,7 @@ const Home = () => {
 
   return (
     <Fragment>
-      <PanelHeaderSimple right={<Icon24AddOutline onClick={() => {goToGroupAdd()}} />}>
+      <PanelHeaderSimple>
         Группы
       </PanelHeaderSimple>
       {groupList.length === 0
@@ -37,6 +38,11 @@ const Home = () => {
                     ><a>{name}</a></Cell>))
           }
       </List>}
+      <FixedLayout vertical="bottom">
+        <Div style={{margin: '8px'}}>
+          <Button size="xl" mode="commerce" onClick={() => goToGroupAdd()}>создать группу</Button>
+        </Div>
+      </FixedLayout>
     </Fragment>
   )
 };

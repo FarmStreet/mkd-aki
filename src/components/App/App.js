@@ -44,7 +44,7 @@ const App = () => {
       setPopout(null);
     }
 
-    fetchData();
+     // fetchData();
   }, []);
 
   if (!activePanel) {

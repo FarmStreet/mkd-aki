@@ -31,10 +31,10 @@ const Home = () => {
       </Div>
         : <List>
           {
-            groupList.reverse().map(({ name, id, isLeader }) => (
-              <Cell key={id} asideContent={isLeader ? <Icon24Settings onClick={() => goToGroupAdd(id)} /> : ''}
+            groupList.map(({ name, id, isLeader }) => (
+              <Cell key={id} onClick={() => {goToGroup(id)}} asideContent={isLeader ? <Icon24Settings onClick={() => goToGroupAdd(id)} /> : ''}
                     description={isLeader ? 'Вы являетесь организатором данной группы' : ''}
-                    ><a onClick={() => {goToGroup(id)}}>{name}</a></Cell>))
+                    ><a>{name}</a></Cell>))
           }
       </List>}
     </Fragment>

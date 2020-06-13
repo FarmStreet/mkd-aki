@@ -1,9 +1,10 @@
-import React, {Fragment, useContext} from 'react';
+import React, {Fragment, useContext, useState} from 'react';
 import {
+  Button,
   Cell,
-  Div, FixedLayout, Group,
+  Div, FixedLayout, FormLayout, Group,
   List, PanelHeaderContent,
-  PanelHeaderSimple,
+  PanelHeaderSimple, Textarea,
 } from "@vkontakte/vkui";
 
 import Icon24Back from '@vkontakte/icons/dist/24/back';
@@ -12,11 +13,25 @@ import Context from "../../components/App/context";
 
 const QuestionItem = () => {
 
-  const { eventList } = useContext(Context);
+  const [ answer, setAnswer ] = useState('');
+  const [ error, setError ] = useState('');
+
+  const { eventList, groupList, answerQuestion } = useContext(Context);
   const {route: {params: {questionId}}} = useRoute();
-  const event = eventList.find(({id}) => id == questionId);
+  const event = (eventList.find(({id}) => id == questionId)) || {answer: ''};
+  const group = groupList.find(({id}) => id == event ? event.groupId : -1);
 
   const goToHome = () => window.history.back();
+
+  const add = () => {
+
+    if (answer.length < 4) {
+      setError('Слишком короткий ответ');
+      return;
+    }
+
+    answerQuestion(questionId, answer);
+  };
 
   return (
     <Fragment>
@@ -32,10 +47,22 @@ const QuestionItem = () => {
         </Cell>
       </Div>
       <Div>
-        <Cell multiline style={{background: 'rgba(0, 255, 0, 0.1)', marginLeft: '20%'}}>
+        {event.answer ? <Cell multiline style={{background: 'rgba(0, 255, 0, 0.1)', marginLeft: '20%'}}>
           {(event) ? event.answer : ''}
         </Cell>
+          : group.isLeader ? <FormLayout style={{paddingBottom: '60px'}}><Textarea
+            top="Форма для ответа"
+            value={answer}
+            onChange={(e) => setAnswer(e.currentTarget.value)}
+            status={error ? 'error' : ''}
+            bottom={error}
+          /></FormLayout> : ''}
       </Div>
+      {!event.answer && group.isLeader ? <FixedLayout vertical="bottom">
+        <Div style={{margin: '8px'}}>
+          <Button size="xl" mode="commerce" onClick={() => add()}>ответить</Button>
+        </Div>
+      </FixedLayout> : ''}
     </Fragment>
   )
 };

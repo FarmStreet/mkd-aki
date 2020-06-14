@@ -17,7 +17,7 @@ const VotingItem = () => {
   const {eventList, groupList, user, addVote, voteList} = useContext(Context);
   const {route: {params: {votingId}}} = useRoute();
   const event = eventList.find(({id}) => id == votingId);
-  const filterVoteList = voteList.filter(({id}) => id == (event ? event.id : -1));
+  const filterVoteList = voteList.filter(({id}) => (id + '-3') == (event ? event.id : -1));
   const group = (groupList.find(({id}) => id == (event ? event.groupId : -1))) || {isLeader: 0};
 
   const [activeMemberList, setActiveMemberList] = useState(1);
@@ -49,7 +49,7 @@ const VotingItem = () => {
     voteAdd(user.id, user.token, event.id, isAgree);
     addVote({
       vk_id: user.id,
-      id: event.id,
+      id: event.id.substring(0, event.id.length - 2),
       groupId: event.groupId,
       name: user.name,
       isAgree: isAgree,

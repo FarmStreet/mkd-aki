@@ -78,9 +78,9 @@ switch ($method) {
         break;
     case 'vote.add':
 
-        if (!isset($input['vote_id']) || !isset($input['is_agree'])) return;
+        if (!isset($input['event_id']) || !isset($input['is_agree'])) return;
 
-        $vote_id = explode('-', $input['vote_id'])[0];
+        $vote_id = explode('-', $input['event_id'])[0];
         Vote::create($vk_id, $vote_id, $input['is_agree']);
         wrapResponse('ok');
         break;

@@ -37,7 +37,7 @@ export async function groupAdd(uid, token, name, members) {
 
   let membersString = '';
   members.forEach(member => {
-    membersString += '&member[]=' + member;
+    membersString += '&members[]=' + member;
   });
 
   try {

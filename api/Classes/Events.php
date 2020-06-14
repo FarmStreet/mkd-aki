@@ -6,15 +6,15 @@ class Events {
     public static function getList($vk_id) {
         global $db;
 
-        $query = $db->prepare('SELECT * FROM questions LEFT JOIN users_groups ON (users_groups.group_id=questions.group_id) WHERE from_id = :vk_id OR (users_groups.vk_id = :vk_id AND users_groups.is_leader = 1)');
+        $query = $db->prepare('SELECT *, questions.group_id as groupId FROM questions LEFT JOIN users_groups ON (users_groups.group_id=questions.group_id) WHERE from_id = :vk_id OR (users_groups.vk_id = :vk_id AND users_groups.is_leader = 1)');
         $query->execute(['vk_id' => $vk_id]);
         $question_list = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        $query = $db->prepare('SELECT * FROM votings LEFT JOIN users_groups ON (users_groups.group_id=votings.group_id) WHERE users_groups.vk_id = :vk_id AND users_groups.is_leader = 1');
+        $query = $db->prepare('SELECT *, votings.group_id as groupId FROM votings LEFT JOIN users_groups ON (users_groups.group_id=votings.group_id) WHERE users_groups.vk_id = :vk_id AND users_groups.is_leader = 1');
         $query->execute(['vk_id' => $vk_id]);
         $voting_list = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        $query = $db->prepare('SELECT * FROM news LEFT JOIN users_groups ON (users_groups.group_id=news.group_id) WHERE users_groups.vk_id = :vk_id AND users_groups.is_leader = 1');
+        $query = $db->prepare('SELECT *, news.group_id as groupId FROM news LEFT JOIN users_groups ON (users_groups.group_id=news.group_id) WHERE users_groups.vk_id = :vk_id AND users_groups.is_leader = 1');
         $query->execute(['vk_id' => $vk_id]);
         $new_list = $query->fetchAll(PDO::FETCH_ASSOC);
 

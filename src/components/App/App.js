@@ -28,10 +28,10 @@ const App = () => {
 
     router.subscribe(changeRoute);
     changeRoute({route});
-   // setPopout(<ScreenSpinner />);
+    setPopout(<ScreenSpinner />);
 
     bridge.subscribe(async ({detail: {type, data}}) => {
-      console.log(type);
+
       if (type === 'VKWebAppUpdateConfig') {
         const schemeAttribute = document.createAttribute('scheme');
         schemeAttribute.value = data.scheme;
@@ -51,6 +51,7 @@ const App = () => {
       newUser.token = authData.token;
       newUser.isNew = authData.isNew;
 
+      console.log(authData);
       setVoteList(authData.voteList);
       setGroupList(authData.groupList);
       setEventList(authData.eventList);

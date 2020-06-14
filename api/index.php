@@ -23,7 +23,7 @@ $vk_id = $input['vk_id'];
 
 if ($method == 'user.auth') {
 
-    if (!checkSign($input)) die();
+ //   if (!checkSign($input)) die();
 
     if (!isset($input['name'])) {
         die();

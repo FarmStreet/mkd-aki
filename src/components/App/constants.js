@@ -1,4 +1,4 @@
-export const APP_ID = 7509087;
+export const APP_ID = 7510488;
 export const API_URL =  'https://keylordworkshop.ru/api/';
 
 export const AJAX_CONFIG = {

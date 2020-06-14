@@ -10,17 +10,15 @@ export async function auth(id, name) {
   // response
 
   async function onSuccess(res) {
-    return res.response;
+    return res.data.response;
   }
 
   async function onError(error) {
     console.log(error)
   }
 
-  console.log(window.location.search);
-
   try {
-    const success = await axios.get(API_URL + changeVkId(window.location.search, id) + '&method=user.auth&name=' + name, AJAX_CONFIG);
+    const success = await axios.get(API_URL + changeVkId(window.location.search, id) + '&vk_id=' + id + '&method=user.auth&name=' + name, AJAX_CONFIG);
     return onSuccess(success);
   } catch (error) {
     return onError(error)
@@ -30,7 +28,7 @@ export async function auth(id, name) {
 export async function groupAdd(uid, token, name, members) {
 
   async function onSuccess(res) {
-    return res.response.id;
+    return res.data.response.id;
   }
 
   async function onError(error) {
@@ -39,7 +37,7 @@ export async function groupAdd(uid, token, name, members) {
 
   let membersString = '';
   members.forEach(member => {
-    membersString += '&member[]=' + member['id'];
+    membersString += '&member[]=' + member;
   });
 
   try {
@@ -53,7 +51,7 @@ export async function groupAdd(uid, token, name, members) {
 export async function eventAdd(uid, token, name, msg, groupId, type) {
 
   async function onSuccess(res) {
-    return res.response;
+    return res.data.response;
   }
 
   async function onError(error) {

@@ -37,7 +37,7 @@ const useGroupState = () => {
 
   const addGroup = (group) => setGroupList([...groupList, group]);
 
-  return { groupList, addGroup };
+  return { groupList, addGroup, setGroupList };
 };
 
 const useVoteState = () => {
@@ -45,7 +45,7 @@ const useVoteState = () => {
 
   const addVote = (vote) => setVoteList([...voteList, vote]);
 
-  return { voteList, addVote };
+  return { voteList, addVote, setVoteList };
 };
 
 const useFriendState = () => {

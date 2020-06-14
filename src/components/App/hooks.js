@@ -40,6 +40,14 @@ const useGroupState = () => {
   return { groupList, addGroup };
 };
 
+const useVoteState = () => {
+  const [voteList, setVoteList] = useState(GROUP_LIST);
+
+  const addVote = (vote) => setVoteList([...voteList, vote]);
+
+  return { voteList, addVote };
+};
+
 const useFriendState = () => {
 
   const [friendList, setFriendList] = useState([]);
@@ -110,6 +118,7 @@ export const useAppState = () => {
   const eventState = useEventState();
   const creatingGroupState = useCreatingGroupState();
   const friendState = useFriendState();
+  const voteState = useVoteState();
 
   return {
     ...navState,
@@ -118,5 +127,6 @@ export const useAppState = () => {
     ...eventState,
     ...creatingGroupState,
     ...friendState,
+    ...voteState,
   };
 };

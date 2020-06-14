@@ -19,7 +19,7 @@ import AskQuestion from "../../panels/AskQuestion/AskQuestion";
 import {auth, getFriendList} from "../../actions/backend";
 
 const App = () => {
-  const {user, setUser, popout, setPopout, changeRoute, activePanel, updateFriendList} = useContext(Context);
+  const {user, setUser, popout, setPopout, changeRoute, activePanel, updateFriendList, setVoteList, setGroupList, setEventList} = useContext(Context);
   const {router, route} = useRoute();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const App = () => {
 
     router.subscribe(changeRoute);
     changeRoute({route});
-    setPopout(<ScreenSpinner />);
+   // setPopout(<ScreenSpinner />);
 
     bridge.subscribe(async ({detail: {type, data}}) => {
       console.log(type);
@@ -50,7 +50,11 @@ const App = () => {
       const authData = await auth(user.id, user.name);
       newUser.token = authData.token;
       newUser.isNew = authData.isNew;
-      console.log(newUser);
+
+      setVoteList(authData.voteList);
+      setGroupList(authData.groupList);
+      setEventList(authData.eventList);
+
       setUser(newUser);
       setPopout(null);
 

@@ -7,6 +7,23 @@ export const AJAX_CONFIG = {
   }
 };
 
+export const VOTE_LIST = [
+  {
+    vk_id: 171138541,
+    id: 2,
+    groupId: 0,
+    name: "Александр Муратов",
+    isAgree: 1,
+  },
+  {
+    vk_id: 232938817,
+    id: 2,
+    groupId: 0,
+    name: "Руслан Канчурин",
+    isAgree: 0,
+  }
+];
+
 export const GROUP_LIST = [
   {
     id: 0,

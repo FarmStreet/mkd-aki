@@ -8,7 +8,6 @@ import Context from "../components/App/context";
 export async function auth(id, name) {
 
   // response
-  // -token -isNew -groupList -eventList
 
   async function onSuccess(res) {
     return res.response;
@@ -28,30 +27,82 @@ export async function auth(id, name) {
   }
 }
 
-/*export async function getFriendList(uid, access_token) {
+export async function groupAdd(uid, token, name, members) {
 
-    const {setFriendList} = useContext(Context);
+  async function onSuccess(res) {
+    return res.response.id;
+  }
 
-    apiRequest('friends.get', {
-        user_id: uid,
-        order: 'random',
-        fields: 'first_name,last_name',
-      }, access_token,
-      function(users) {
-      let friends = [];
-        users.items.forEach(user => {
-          user.name = user.first_name + ' ' + user.last_name;
-          friends.push({
-            id: user.id,
-            name: user.name
-          })
-        });
-        setFriendList(friends);
-      },
-      function(er) {
-        return []
-      });
-}*/
+  async function onError(error) {
+    console.log(error)
+  }
+
+  let membersString = '';
+  members.forEach(member => {
+    membersString += '&member[]=' + member['id'];
+  });
+
+  try {
+    const success = await axios.get(API_URL + '?method=group.add&vk_id=' + uid + '&token=' + token + '&name=' + name + membersString, AJAX_CONFIG);
+    return onSuccess(success);
+  } catch (error) {
+    return onError(error)
+  }
+}
+
+export async function eventAdd(uid, token, name, msg, groupId, type) {
+
+  async function onSuccess(res) {
+    return res.response.id;
+  }
+
+  async function onError(error) {
+    console.log(error)
+  }
+
+  try {
+    const success = await axios.get(API_URL + '?method=event.add&vk_id=' + uid + '&token=' + token + '&name=' + name + '&msg=' + msg + '&group_id=' + groupId + '&type=' + type, AJAX_CONFIG);
+    return onSuccess(success);
+  } catch (error) {
+    return onError(error)
+  }
+}
+
+export async function voteAdd(uid, token, eventId, isAgree) {
+
+  async function onSuccess(res) {
+    return true;
+  }
+
+  async function onError(error) {
+    console.log(error)
+  }
+
+  try {
+    const success = await axios.get(API_URL + '?method=vote.add&vk_id=' + uid + '&token=' + token + '&event_id=' + eventId + '&is_agree=' + isAgree, AJAX_CONFIG);
+    return onSuccess(success);
+  } catch (error) {
+    return onError(error)
+  }
+}
+
+export async function questionAnswer(uid, token, eventId, answer) {
+
+  async function onSuccess(res) {
+    return true;
+  }
+
+  async function onError(error) {
+    console.log(error)
+  }
+
+  try {
+    const success = await axios.get(API_URL + '?method=question.answer&vk_id=' + uid + '&token=' + token + '&question_id=' + eventId + '&answer=' + answer, AJAX_CONFIG);
+    return onSuccess(success);
+  } catch (error) {
+    return onError(error)
+  }
+}
 
 function getNewRequestId() {
   return (Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)).toString();

@@ -54,28 +54,36 @@ if (!checkToken($vk_id, $input['token'])) die();
 switch ($method) {
     case 'group.add':
 
-        Groups::create($vk_id, $name, $members);
+        if (!isset($input['name']) || !isset($input['members'])) return;
+
+        Groups::create($vk_id, $input['name'], $input['members']);
         break;
     case 'event.add':
 
-        if (!isset($input['type'])) return;
+        if (!isset($input['type']) || !isset($input['group_id']) || !isset($input['name']) || !isset($input['msg'])) return;
 
         if ($input['type'] == EVENT_TYPE_NEW) {
-            Events::addNew($group_id, $name, $message);
+            Events::addNew($input['group_id'], $input['name'], $input['msg']);
         }
         if ($input['type'] == EVENT_TYPE_QUESTION) {
-            Events::addQuestion($vk_id, $group_id, $name, $question);
+            Events::addQuestion($vk_id, $input['group_id'], $input['name'], $input['msg']);
         }
         if ($input['type'] == EVENT_TYPE_VOTING) {
-            Events::addVote($group_id, $name, $desc);
+            Events::addVote($input['group_id'], $input['name'], $input['msg']);
         }
         break;
     case 'vote.add':
 
-        Vote::create($vk_id, $vote_id, $is_agree);
+        if (!isset($input['vote_id']) || !isset($input['is_agree'])) return;
+
+        $vote_id = explode('-', $input['vote_id'])[0];
+        Vote::create($vk_id, $vote_id, $input['is_agree']);
         break;
     case 'question.answer':
 
-        Events::setQuestionAnswer($question_id, $answer);
+        if (!isset($input['question_id']) || !isset($input['answer'])) return;
+
+        $question_id = explode('-', $input['question_id'])[0];
+        Events::setQuestionAnswer($question_id, $input['answer']);
         break;
 }

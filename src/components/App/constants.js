@@ -8,7 +8,7 @@ export const AJAX_CONFIG = {
 };
 
 export const VOTE_LIST = [
-  {
+/*  {
     vk_id: 171138541,
     id: 2,
     groupId: 0,
@@ -21,11 +21,11 @@ export const VOTE_LIST = [
     groupId: 0,
     name: "Руслан Канчурин",
     isAgree: 0,
-  }
+  }*/
 ];
 
 export const GROUP_LIST = [
-  {
+/*  {
     id: 0,
     name: 'дом №5',
     count: 2,
@@ -36,7 +36,7 @@ export const GROUP_LIST = [
     name: 'дом №4',
     count: 2,
     isLeader: 0
-  }
+  }*/
 ];
 
 
@@ -55,7 +55,7 @@ export const STATUS_LIST = {
 };
 
 export const EVENT_LIST = [
-  {
+/*  {
     id: 0,
     type: 2,
     from: 232938817,
@@ -87,16 +87,16 @@ export const EVENT_LIST = [
         agree: 1,
       },
     ],
-  },
+  },*/
 ];
 
 export const FRIEND_LIST = [
-  {
+/*  {
     id: 171138541,
     name: 'Александр Муратов'
   },
   {
     id: 232938817,
     name: 'Руслан Канчурин'
-  },
+  },*/
 ];

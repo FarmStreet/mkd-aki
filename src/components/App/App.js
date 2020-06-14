@@ -17,6 +17,7 @@ import VotingItem from "../../panels/VotingItem/VotingItem";
 import EventAdd from "../../panels/NewsAdd/EventAdd";
 import AskQuestion from "../../panels/AskQuestion/AskQuestion";
 import {auth, getFriendList} from "../../actions/backend";
+import EnterScreen from "../../panels/EnterScreen/EnterScreen";
 
 const App = () => {
   const {user, setUser, popout, setPopout, changeRoute, activePanel, updateFriendList, setVoteList, setGroupList, setEventList} = useContext(Context);
@@ -25,6 +26,7 @@ const App = () => {
   useEffect(() => {
 
     bridge.send('VKWebAppInit');
+
 
     router.subscribe(changeRoute);
     changeRoute({route});
@@ -51,7 +53,8 @@ const App = () => {
       newUser.token = authData.token;
       newUser.isNew = authData.isNew;
 
-      console.log(authData);
+      if (newUser.isNew == 1) router.navigate(pages.ENTER_SCREEN);
+
       setVoteList(authData.voteList);
       setGroupList(authData.groupList);
       setEventList(authData.eventList);
@@ -99,6 +102,9 @@ const App = () => {
         </Panel>
         <Panel id={pages.ASK_QUESTION}>
           <AskQuestion/>
+        </Panel>
+        <Panel id={pages.ENTER_SCREEN}>
+          <EnterScreen/>
         </Panel>
       </View>
     </Fragment>

@@ -18,17 +18,17 @@ class Events {
         $query->execute(['vk_id' => $vk_id]);
         $new_list = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($question_list as $question) {
-            $question['type'] = EVENT_TYPE_QUESTION;
-            $question['id']   = $question['id'] . '-' . EVENT_TYPE_QUESTION;
+        foreach ($question_list as $k => $question) {
+            $question_list[$k]['type'] = EVENT_TYPE_QUESTION;
+            $question_list[$k]['id']   = $question['id'] . '-' . EVENT_TYPE_QUESTION;
         }
-        foreach ($voting_list as $voting) {
-            $voting['type'] = EVENT_TYPE_VOTING;
-            $voting['id']   = $voting['id'] . '-' . EVENT_TYPE_VOTING;
+        foreach ($voting_list as $k =>$voting) {
+            $voting_list[$k]['type'] = EVENT_TYPE_VOTING;
+            $voting_list[$k]['id']   = $voting['id'] . '-' . EVENT_TYPE_VOTING;
         }
-        foreach ($new_list as $new) {
-            $new['type'] = EVENT_TYPE_NEW;
-            $new['id']   = $new['id'] . '-' . EVENT_TYPE_NEW;
+        foreach ($new_list as $k =>$new) {
+            $new_list[$k]['type'] = EVENT_TYPE_NEW;
+            $new_list[$k]['id']   = $new['id'] . '-' . EVENT_TYPE_NEW;
         }
 
         $event_list = array_merge($new_list, array_merge($voting_list, $question_list));
@@ -38,41 +38,44 @@ class Events {
         return $event_list;
     }
 
-    public static function addVote($group_id, $name, $desc) {
+    public static function addVote($group_id, $name, $description) {
         global $db;
 
-        $query = $db->prepare("INSERT INTO votings (group_id, date, name, desc) VALUES (:group_id, :date, :name, :desc)");
-        return $query->execute([
-            'group_id' => $group_id,
-            'date'     => date('d.m.Y'),
-            'name'     => $name,
-            'desc'     => $desc,
+        $query = $db->prepare("INSERT INTO votings (group_id, date, name, description) VALUES (:group_id, :date, :name, :description)");
+        $query->execute([
+            'group_id'    => $group_id,
+            'date'        => date('d.m.Y'),
+            'name'        => $name,
+            'description' => $description,
         ]);
+        return $db->lastInsertId();
     }
 
     public static function addQuestion($vk_id, $group_id, $name, $question) {
         global $db;
 
         $query = $db->prepare("INSERT INTO questions (from_id, group_id, date, name, question) VALUES (:vk_id, :group_id, :date, :name, :question)");
-        return $query->execute([
+        $query->execute([
             'vk_id'    => $vk_id,
             'group_id' => $group_id,
             'date'     => date('d.m.Y'),
             'name'     => $name,
             'question' => $question,
         ]);
+        return $db->lastInsertId();
     }
 
     public static function addNew($group_id, $name, $message) {
         global $db;
 
         $query = $db->prepare("INSERT INTO news (group_id, date, name, message) VALUES (:group_id, :date, :name, :message)");
-        return $query->execute([
+        $query->execute([
             'group_id' => $group_id,
             'date'     => date('d.m.Y'),
             'name'     => $name,
             'message'  => $message,
         ]);
+        return $db->lastInsertId();
     }
 
     public static function setQuestionAnswer($question_id, $answer) {
@@ -81,8 +84,8 @@ class Events {
         $result = $db->prepare('UPDATE questions SET answer=:answer WHERE id=:id');
 
         return $result->execute([
-            'id'     => $answer,
-            'answer' => $question_id,
+            'id'     => $question_id,
+            'answer' => $answer,
         ]);
     }
 }

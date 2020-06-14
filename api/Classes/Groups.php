@@ -15,14 +15,17 @@ class Groups {
         global $db;
 
         $query = $db->prepare("INSERT INTO groups (name) VALUES (:name)");
-        $group_id = $query->execute(['name' => $name]);
+        $query->execute(['name' => $name]);
+        $group_id = $db->lastInsertId();
 
         $query = $db->prepare("INSERT INTO users_groups (vk_id, group_id, is_leader) VALUES (:vk_id, :group_id, 1)");
-        $query->execute(['name' => $vk_id, 'group_id' => $group_id]);
+        $query->execute(['vk_id' => $vk_id, 'group_id' => $group_id]);
 
         foreach ($members as $member) {
             $query = $db->prepare("INSERT INTO users_groups (vk_id, group_id, is_leader) VALUES (:vk_id, :group_id, 0)");
-            $query->execute(['name' => $member['id'], 'group_id' => $group_id]);
+            $query->execute(['vk_id' => $member, 'group_id' => $group_id]);
         }
+
+        return $group_id;
     }
 }

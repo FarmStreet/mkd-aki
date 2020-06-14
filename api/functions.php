@@ -19,7 +19,7 @@ function checkToken($user_id, $token) {
     return $real_token === $token;
 }
 
-function wrapResponse($code, $params) {
+function wrapResponse($code, $params = []) {
 
     $result['code'] = $code;
     if ($params) {

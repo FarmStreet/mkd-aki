@@ -23,7 +23,7 @@ $vk_id = $input['vk_id'];
 
 if ($method == 'user.auth') {
 
-    //   if (!checkSign($input)) die();
+    if (!checkSign($input)) die();
 
     if (!isset($input['name'])) {
         die();
@@ -39,16 +39,16 @@ if ($method == 'user.auth') {
     }
 
     $response['token']     = md5(md5($vk_id) . TOKEN_SALT);
-    $response['groupList'] = Groups::getList($vk_id) || [];
-    $response['eventList'] = Events::getList($vk_id) || [];
-    $response['voteList']  = Vote::getList($vk_id) || [];
+    $response['groupList'] = Groups::getList($vk_id);
+    $response['eventList'] = Events::getList($vk_id);
+    $response['voteList']  = Vote::getList($vk_id);
     $response['isNew']     = $is_new;
 
     wrapResponse('ok', $response);
     die();
 }
 
-if (isset($input['token'])) die();
+if (!isset($input['token'])) die();
 if (!checkToken($vk_id, $input['token'])) die();
 
 switch ($method) {
@@ -56,20 +56,24 @@ switch ($method) {
 
         if (!isset($input['name']) || !isset($input['members'])) return;
 
-        Groups::create($vk_id, $input['name'], $input['members']);
+        $id = Groups::create($vk_id, $input['name'], $input['members']);
+        wrapResponse('ok', ['id' => $id]);
         break;
     case 'event.add':
 
         if (!isset($input['type']) || !isset($input['group_id']) || !isset($input['name']) || !isset($input['msg'])) return;
 
         if ($input['type'] == EVENT_TYPE_NEW) {
-            Events::addNew($input['group_id'], $input['name'], $input['msg']);
+            $id = Events::addNew($input['group_id'], $input['name'], $input['msg']);
+            wrapResponse('ok', ['id' => $id . '-' . EVENT_TYPE_NEW]);
         }
         if ($input['type'] == EVENT_TYPE_QUESTION) {
-            Events::addQuestion($vk_id, $input['group_id'], $input['name'], $input['msg']);
+            $id = Events::addQuestion($vk_id, $input['group_id'], $input['name'], $input['msg']);
+            wrapResponse('ok', ['id' => $id . '-' . EVENT_TYPE_QUESTION]);
         }
         if ($input['type'] == EVENT_TYPE_VOTING) {
-            Events::addVote($input['group_id'], $input['name'], $input['msg']);
+            $id = Events::addVote($input['group_id'], $input['name'], $input['msg']);
+            wrapResponse('ok', ['id' => $id . '-' . EVENT_TYPE_VOTING]);
         }
         break;
     case 'vote.add':
@@ -78,6 +82,7 @@ switch ($method) {
 
         $vote_id = explode('-', $input['vote_id'])[0];
         Vote::create($vk_id, $vote_id, $input['is_agree']);
+        wrapResponse('ok');
         break;
     case 'question.answer':
 
@@ -85,5 +90,6 @@ switch ($method) {
 
         $question_id = explode('-', $input['question_id'])[0];
         Events::setQuestionAnswer($question_id, $input['answer']);
+        wrapResponse('ok');
         break;
 }

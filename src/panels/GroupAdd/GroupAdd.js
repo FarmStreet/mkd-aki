@@ -15,11 +15,10 @@ import {pages} from "../../router";
 import Context from "../../components/App/context";
 import bridge from '@vkontakte/vk-bridge';
 import {APP_ID} from "../../components/App/constants";
-
-//  TODO сделать условие вывода для пустых групп
+import {groupAdd} from "../../actions/backend";
 
 const GroupAdd = () => {
-  const {creatingGroup, setCreatingGroup, setCreatingGroupName, setCreatingGroupMembers, removeCreatingGroupMember, addGroup, groupList, friendList} = useContext(Context);
+  const {creatingGroup, setCreatingGroup, setCreatingGroupName, setCreatingGroupMembers, removeCreatingGroupMember, addGroup, groupList, friendList, user} = useContext(Context);
 
   const [error, setError] = useState('');
 
@@ -36,7 +35,7 @@ const GroupAdd = () => {
     router.navigate(pages.FRIEND_LIST);
   };
 
-  const addNewGroup = () => {
+  const addNewGroup = async () => {
     if (creatingGroup.name.length < 4) {
       setError('Слишком короткое название');
       return;
@@ -47,8 +46,12 @@ const GroupAdd = () => {
       return;
     }
 
+    let filterMembers = [];
+    creatingGroup.members.forEach(member => filterMembers.push(member.id));
+
+    let group_id = await groupAdd(user.id, user.token, creatingGroup.name, filterMembers);
     addGroup({
-      id: groupList.length,
+      id: group_id,
       name: creatingGroup.name,
       count: creatingGroup.members.length,
       isLeader: 1

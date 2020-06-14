@@ -64,16 +64,16 @@ switch ($method) {
         if (!isset($input['type']) || !isset($input['group_id']) || !isset($input['name']) || !isset($input['msg'])) return;
 
         if ($input['type'] == EVENT_TYPE_NEW) {
-            $id = Events::addNew($input['group_id'], $input['name'], $input['msg']);
-            wrapResponse('ok', ['id' => $id . '-' . EVENT_TYPE_NEW]);
+            $res = Events::addNew($input['group_id'], $input['name'], $input['msg']);
+            wrapResponse('ok', ['id' => $res['id'] . '-' . EVENT_TYPE_NEW, 'date' => $res['date']]);
         }
         if ($input['type'] == EVENT_TYPE_QUESTION) {
-            $id = Events::addQuestion($vk_id, $input['group_id'], $input['name'], $input['msg']);
-            wrapResponse('ok', ['id' => $id . '-' . EVENT_TYPE_QUESTION]);
+            $res = Events::addQuestion($vk_id, $input['group_id'], $input['name'], $input['msg']);
+            wrapResponse('ok', ['id' => $res['id'] . '-' . EVENT_TYPE_QUESTION, 'date' => $res['date']]);
         }
         if ($input['type'] == EVENT_TYPE_VOTING) {
-            $id = Events::addVote($input['group_id'], $input['name'], $input['msg']);
-            wrapResponse('ok', ['id' => $id . '-' . EVENT_TYPE_VOTING]);
+            $res = Events::addVote($input['group_id'], $input['name'], $input['msg']);
+            wrapResponse('ok', ['id' => $res['id'] . '-' . EVENT_TYPE_VOTING, 'date' => $res['date']]);
         }
         break;
     case 'vote.add':

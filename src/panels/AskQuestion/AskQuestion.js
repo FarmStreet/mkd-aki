@@ -12,6 +12,7 @@ import {useRoute, useRouter} from "react-router5";
 import Icon24AddOutline from '@vkontakte/icons/dist/24/add_outline';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 import Context from "../../components/App/context";
+import {eventAdd} from "../../actions/backend";
 
 const AskQuestion = () => {
 
@@ -26,7 +27,7 @@ const AskQuestion = () => {
 
   const goToHome = () => window.history.back();
 
-  const add = () => {
+  const add = async () => {
 
     if (title.length < 4) {
       setError('Слишком короткое название!');
@@ -43,15 +44,16 @@ const AskQuestion = () => {
       return;
     }
 
+    let newEvent = await eventAdd(user.id, user.token, title, question, groupId, 2);
     addEvent({
-      id: eventList.length,
+      id: newEvent.id,
       from: user.id,
       groupId: groupId,
       type: 2,
       name: title,
       question: question,
       answer: '',
-      date: '13.06.2020',
+      date: newEvent.date,
     });
     goToHome();
   };

@@ -48,7 +48,7 @@ class Events {
             'name'        => $name,
             'description' => $description,
         ]);
-        return $db->lastInsertId();
+        return ['id' => $db->lastInsertId(), 'date' => date('d.m.Y')];
     }
 
     public static function addQuestion($vk_id, $group_id, $name, $question) {
@@ -62,7 +62,7 @@ class Events {
             'name'     => $name,
             'question' => $question,
         ]);
-        return $db->lastInsertId();
+        return ['id' => $db->lastInsertId(), 'date' => date('d.m.Y')];
     }
 
     public static function addNew($group_id, $name, $message) {
@@ -75,7 +75,7 @@ class Events {
             'name'     => $name,
             'message'  => $message,
         ]);
-        return $db->lastInsertId();
+        return ['id' => $db->lastInsertId(), 'date' => date('d.m.Y')];
     }
 
     public static function setQuestionAnswer($question_id, $answer) {

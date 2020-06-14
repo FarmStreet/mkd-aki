@@ -10,26 +10,28 @@ import {
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 import {useRoute} from "react-router5";
 import Context from "../../components/App/context";
+import {questionAnswer} from "../../actions/backend";
 
 const QuestionItem = () => {
 
   const [ answer, setAnswer ] = useState('');
   const [ error, setError ] = useState('');
 
-  const { eventList, groupList, answerQuestion } = useContext(Context);
+  const { eventList, groupList, answerQuestion, user } = useContext(Context);
   const {route: {params: {questionId}}} = useRoute();
   const event = (eventList.find(({id}) => id == questionId)) || {answer: ''};
   const group = (groupList.find(({id}) => id == (event ? event.groupId : -1))) || {isLeader: 0};
 
   const goToHome = () => window.history.back();
 
-  const add = () => {
+  const add = async () => {
 
     if (answer.length < 4) {
       setError('Слишком короткий ответ');
       return;
     }
 
+    await questionAnswer(user.id, user.token, event.id, answer);
     answerQuestion(questionId, answer);
   };
 

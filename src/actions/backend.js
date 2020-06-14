@@ -53,7 +53,7 @@ export async function groupAdd(uid, token, name, members) {
 export async function eventAdd(uid, token, name, msg, groupId, type) {
 
   async function onSuccess(res) {
-    return res.response.id;
+    return res.response;
   }
 
   async function onError(error) {

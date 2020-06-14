@@ -12,12 +12,13 @@ import {useRoute, useRouter} from "react-router5";
 import Icon24AddOutline from '@vkontakte/icons/dist/24/add_outline';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 import Context from "../../components/App/context";
+import {eventAdd, questionAnswer} from "../../actions/backend";
 
 const EventAdd = () => {
 
   const {route: {params: {groupId}}} = useRoute();
 
-  const {addEvent, eventList } = useContext(Context);
+  const {addEvent, eventList, user } = useContext(Context);
 
   const [activeTab, setActiveTab] = useState(0);
   const [title, setTitle] = useState('');
@@ -30,7 +31,7 @@ const EventAdd = () => {
   const goToGroupAdd = () => router.navigate(pages.GROUP_ADD);
   const goToHome = () => window.history.back();
 
-  const add = () => {
+  const add = async () => {
     if (title.length < 4) {
       setError('Слишком короткое название!');
       return;
@@ -48,13 +49,14 @@ const EventAdd = () => {
         return;
       }
 
+      let newEvent = await eventAdd(user.id, user.token, title, newDesc, groupId, 1);
       addEvent({
-        id: eventList.length,
+        id: newEvent.id,
         type: 1,
         groupId: groupId,
         name: title,
         message: newDesc,
-        date: '13.06.2020'
+        date: newEvent.date
       });
       goToHome();
     }
@@ -66,14 +68,14 @@ const EventAdd = () => {
         return;
       }
 
+      let newEvent = await eventAdd(user.id, user.token, title, voteDesc, groupId, 3);
       addEvent({
-        id: eventList.length,
+        id: newEvent.id,
         groupId: groupId,
         type: 3,
         name: title,
         description: voteDesc,
-        date: '13.06.2020',
-        members: []
+        date: newEvent.date,
       });
       goToHome();
     }

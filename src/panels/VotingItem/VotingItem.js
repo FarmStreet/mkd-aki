@@ -10,6 +10,7 @@ import './VotingItem.css';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 import Context from "../../components/App/context";
 import {useRoute} from "react-router5";
+import {voteAdd} from "../../actions/backend";
 
 const VotingItem = () => {
 
@@ -45,6 +46,7 @@ const VotingItem = () => {
 
   const voteAction = (isAgree) => {
 
+    voteAdd(user.id, user.token, event.id, isAgree);
     addVote({
       vk_id: user.id,
       id: event.id,

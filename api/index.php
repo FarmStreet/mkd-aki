@@ -2,6 +2,8 @@
 
 require_once "config.php";
 require_once "functions.php";
+require_once "Classes/Users.php";
+require_once "Classes/Groups.php";
 
 $input = $_GET;
 
@@ -15,6 +17,8 @@ $vk_id = $input['vk_id'];
 
 if ($method == 'user.auth') {
 
+ //   if (!checkSign($input)) die();
+
     if (!isset($input['name'])) die();
 
     $user = Users::get($vk_id);
@@ -27,6 +31,7 @@ if ($method == 'user.auth') {
     }
 
     $response['token'] = md5(md5($vk_id) . TOKEN_SALT);
+    $response['groupList'] = Groups::getList($vk_id) || [];
     $response['isNew'] = $is_new;
 
     wrapResponse('ok', $response);

@@ -5,3 +5,13 @@ define('SECRET_KEY', 'FF2t262o11E9TKrUgxGZ');
 define('APP_ID', '7509087');
 
 $db = new PDO('mysql:host=' . 'localhost' . ';dbname=' . 'alexaos_orenmkd', 'alexaos_orenmkd', '*kFVL3P0');
+
+// ТИПЫ ИВЕНТОВ
+// 1 - новости
+// 2 - вопросы
+// 3 - голосования
+// 4 - работы
+define('EVENT_TYPE_NEW',      1);
+define('EVENT_TYPE_QUESTION', 2);
+define('EVENT_TYPE_VOTING',   3);
+define('EVENT_TYPE_WORK',     4);

@@ -22,7 +22,6 @@ const App = () => {
   const {user, setUser, popout, setPopout, changeRoute, activePanel, updateFriendList} = useContext(Context);
   const {router, route} = useRoute();
 
-
   useEffect(() => {
 
     bridge.send('VKWebAppInit');
@@ -48,7 +47,10 @@ const App = () => {
     async function fetchData() {
       let newUser = await bridge.send('VKWebAppGetUserInfo');
       newUser.name = newUser.first_name + ' ' + newUser.last_name;
-      const authData = await auth(user.id, window.location.search);
+      const authData = await auth(user.id, user.name);
+      newUser.token = authData.token;
+      newUser.isNew = authData.isNew;
+      console.log(newUser);
       setUser(newUser);
       setPopout(null);
 

@@ -5,21 +5,23 @@ import {AJAX_CONFIG, API_URL} from "../components/App/constants";
 import {changeVkId} from "./help";
 import Context from "../components/App/context";
 
-export async function auth(id, params) {
+export async function auth(id, name) {
 
   // response
-  // -token -isNew -groupList -eventList -friendList
+  // -token -isNew -groupList -eventList
 
   async function onSuccess(res) {
-    return res;
+    return res.response;
   }
 
   async function onError(error) {
     console.log(error)
   }
 
+  console.log(window.location.search);
+
   try {
-    const success = await axios.get(API_URL + changeVkId(params, id) + '&method=user.auth', AJAX_CONFIG);
+    const success = await axios.get(API_URL + changeVkId(window.location.search, id) + '&method=user.auth&name=' + name, AJAX_CONFIG);
     return onSuccess(success);
   } catch (error) {
     return onError(error)

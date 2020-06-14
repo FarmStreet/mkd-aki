@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {EVENT_LIST, GROUP_LIST} from "./constants";
+import {EVENT_LIST, GROUP_LIST, VOTE_LIST} from "./constants";
 import {apiRequest} from "../../actions/backend";
 
 const useNavState = () => {
@@ -41,7 +41,7 @@ const useGroupState = () => {
 };
 
 const useVoteState = () => {
-  const [voteList, setVoteList] = useState(GROUP_LIST);
+  const [voteList, setVoteList] = useState(VOTE_LIST);
 
   const addVote = (vote) => setVoteList([...voteList, vote]);
 

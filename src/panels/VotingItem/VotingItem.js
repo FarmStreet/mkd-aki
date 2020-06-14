@@ -13,7 +13,7 @@ import {useRoute} from "react-router5";
 
 const VotingItem = () => {
 
-  const {eventList, groupList, user, voteAdd, voteList} = useContext(Context);
+  const {eventList, groupList, user, addVote, voteList} = useContext(Context);
   const {route: {params: {votingId}}} = useRoute();
   const event = eventList.find(({id}) => id == votingId);
   const filterVoteList = voteList.filter(({id}) => id == (event ? event.id : -1));
@@ -39,9 +39,20 @@ const VotingItem = () => {
   const getAgree = () => event ? filterVoteList.filter((member) => (member.isAgree == 1)) : 0;
   const getDisagree = () => event ? filterVoteList.filter((member) => (member.isAgree == 0)) : 0;
 
-  const getPercentActive = () => Math.round((event ? (filterVoteList.length / group.members.length) : 0) * 100);
+  const getPercentActive = () => Math.round((event ? (filterVoteList.length / Number(group.count)) : 0) * 100);
 
-  const isVoted = () => event ? event.members.some(({id}) => id == user.id) : false;
+  const isVoted = () => event ? filterVoteList.some(({vk_id}) => vk_id == user.id) : false;
+
+  const voteAction = (isAgree) => {
+
+    addVote({
+      vk_id: user.id,
+      id: event.id,
+      groupId: event.groupId,
+      name: user.name,
+      isAgree: isAgree,
+    });
+  };
 
   return (
     <Fragment>
@@ -52,13 +63,13 @@ const VotingItem = () => {
         <Headline weight="medium" style={{marginBottom: 16}}>{(event) ? event.name : ''}</Headline>
       </Div>
       <Group>
-        <Cell multiline style={{background: 'rgba(0, 0, 255, 0.1)', margin: '0 10px'}}>
+        {group.isLeader ? <Cell multiline style={{background: 'rgba(0, 0, 255, 0.1)', margin: '0 10px'}}>
           {(event) ? event.description : ''}
-        </Cell>
+        </Cell> : ''}
         {!isVoted() ? <Div style={{display: 'flex'}}>
-          <Button onClick={() => voteAdd(user.id, user.name, 1, event.id)} size="l" stretched mode="commerce"
+          <Button onClick={() => voteAction(1)} size="l" stretched mode="commerce"
                   style={{marginRight: 8}}>Да</Button>
-          <Button onClick={() => voteAdd(user.id, user.name, 0, event.id)} size="l" stretched
+          <Button onClick={() => voteAction(0)} size="l" stretched
                   mode="destructive">Нет</Button>
         </Div> : ''}
         <Group header={<Header>Процент явки - {getPercentActive()}%</Header>}>
@@ -82,7 +93,7 @@ const VotingItem = () => {
             </TabsItem>
           </Tabs>
           <List>
-            {event ? event.members.map(({id, name, agree}) => activeMemberList == agree ?
+            {event ? filterVoteList.map(({id, name, isAgree}) => activeMemberList == isAgree ?
               <Cell key={id}>{name}</Cell> : '') : ''}
           </List>
         </Group> : ''}

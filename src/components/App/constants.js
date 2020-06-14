@@ -28,31 +28,13 @@ export const GROUP_LIST = [
   {
     id: 0,
     name: 'дом №5',
-    members: [
-      {
-        id: 171138541,
-        name: 'Александр Муратов'
-      },
-      {
-        id: 232938817,
-        name: 'Руслан Канчурин'
-      },
-    ],
+    count: 2,
     isLeader: 1
   },
   {
     id: 1,
     name: 'дом №4',
-    members: [
-      {
-        id: 171138541,
-        name: 'Александр Муратов'
-      },
-      {
-        id: 232938817,
-        name: 'Руслан Канчурин'
-      },
-    ],
+    count: 2,
     isLeader: 0
   }
 ];
